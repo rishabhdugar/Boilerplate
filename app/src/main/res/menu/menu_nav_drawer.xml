@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_one"
+            android:icon="@drawable/ic_trips_white"
+            android:title="@string/text_one"/>
+        <item
+            android:id="@+id/nav_two"
+            android:icon="@drawable/ic_supervised_white"
+            android:title="@string/text_two"/>
+        <item
+            android:id="@+id/nav_three"
+            android:icon="@drawable/ic_action_points_white"
+            android:title="@string/text_three"/>
+
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_four"
+            android:icon="@drawable/ic_language_white"
+            android:title="@string/text_four"/>
+
+        <item
+            android:id="@+id/nav_five"
+            android:icon="@drawable/ic_settings_white"
+            android:title="@string/text_five"/>
+
+        <item
+            android:id="@+id/nav_six"
+            android:icon="@drawable/ic_logout_white"
+            android:title="@string/text_six"/>
+
+    </group>
+
+</menu>

@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.domain.template"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            /*def Properties keyProps = new Properties()
+            keyProps.load(new FileInputStream(file('../local.properties')))
+            storeFile file(keyProps["release.store.path"])
+            keyAlias keyProps["release.key.alias"]
+            storePassword keyProps["release.store.password"]
+            keyPassword keyProps["release.key.password"]*/
+        }
+
+        debug {
+            /*def Properties keyProps = new Properties()
+            keyProps.load(new FileInputStream(file('../local.properties')))
+            storeFile file(keyProps["debug.store.path"])
+            keyAlias keyProps["debug.key.alias"]
+            storePassword keyProps["debug.store.password"]
+            keyPassword keyProps["debug.key.password"]*/
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            debuggable true
+            buildConfigField "boolean", "isDEBUG", "true"
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable false
+            buildConfigField "boolean", "isDEBUG", "false"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    debugCompile 'com.amitshekhar.android:debug-db:0.2.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.google.guava:guava:19.0'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+}

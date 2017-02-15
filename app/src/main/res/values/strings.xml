@@ -1,0 +1,36 @@
+<resources>
+
+    <!--main-->
+    <string name="app_name">Template</string>
+
+    <!--util-->
+    <string name="msg_network_connection_error">No Internet connection</string>
+    <string name="msg_page_not_found">404 Page not found</string>
+    <string name="msg_unknown_error">Unknown error</string>
+    <string name="msg_bad_request">Bad request</string>
+    <string name="msg_not_authorized">User not authorized</string>
+    <string name="msg_connection_error">Connection error</string>
+    <string name="msg_navigation_drawer_open">Open navigation drawer</string>
+    <string name="msg_navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Sing in screen strings-->
+    <string name="text_btn_auth_sign">SIGN IN</string>
+
+    <!--Navigation drawer menu items-->
+    <string name="text_one">One</string>
+    <string name="text_two">Two</string>
+    <string name="text_three">Three</string>
+    <string name="text_four">Four</string>
+    <string name="text_five">Five</string>
+    <string name="text_six">Six</string>
+    <string name="text_welcome">Welcome to start template. Please sign in with any fake credentials.</string>
+
+    <!--auth screen edt hints-->
+    <string name="hint_tiet_auth_email">EMAIL</string>
+    <string name="hint_tiet_auth_pass">PASSWORD</string>
+
+    <!--edt errors-->
+    <string name="msg_edt_error_mail">Enter email</string>
+    <string name="msg_edt_pass_error">Enter password</string>
+
+</resources>
