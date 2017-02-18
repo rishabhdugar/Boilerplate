@@ -18,7 +18,7 @@ import com.sarkisian.template.io.bus.event.Event;
 import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.util.APIUtil;
 import com.sarkisian.template.io.rest.util.PostEntityUtil;
-import com.sarkisian.template.io.service.TIntentService;
+import com.sarkisian.template.io.service.TlIntentService;
 import com.sarkisian.template.util.AppUtil;
 import com.sarkisian.template.util.manager.DialogManager;
 import com.sarkisian.template.util.manager.SnackBarManager;
@@ -205,7 +205,7 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
                     pass
             );
 
-            TIntentService.start(
+            TlIntentService.start(
                     this,
                     getClass().getSimpleName(),
                     APIUtil.getURL(APIUtil.LOGIN),

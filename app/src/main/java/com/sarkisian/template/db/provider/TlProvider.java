@@ -11,22 +11,22 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.sarkisian.template.BuildConfig;
-import com.sarkisian.template.db.GCDataBase;
-import com.sarkisian.template.db.GCDataBaseHelper;
+import com.sarkisian.template.db.TlDataBase;
+import com.sarkisian.template.db.TlDataBaseHelper;
 
 
-public class TProvider extends ContentProvider {
+public class TlProvider extends ContentProvider {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TProvider.class.getName();
+    private static final String LOG_TAG = TlProvider.class.getName();
 
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID;
 
     public class Path {
-        static final String USER_LOCATION = GCDataBase.USER_TABLE;
+        static final String USER_LOCATION = TlDataBase.USER_TABLE;
     }
 
     private class Code {
@@ -47,7 +47,7 @@ public class TProvider extends ContentProvider {
     // Fields
     // ===========================================================
 
-    private GCDataBaseHelper mScDbHelper;
+    private TlDataBaseHelper mDataBaseHelper;
 
     // ===========================================================
     // Constructors
@@ -63,7 +63,7 @@ public class TProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mScDbHelper = new GCDataBaseHelper(getContext());
+        mDataBaseHelper = new TlDataBaseHelper(getContext());
         return false;
     }
 
@@ -84,13 +84,13 @@ public class TProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         Uri contentUri;
-        SQLiteDatabase db = mScDbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
         long id;
 
         switch (sUriMatcher.match(uri)) {
             case Code.SINGLE_USER:
             case Code.ALL_USERS:
-                id = db.insertWithOnConflict(GCDataBase.USER_TABLE, null, values,
+                id = db.insertWithOnConflict(TlDataBase.USER_TABLE, null, values,
                         SQLiteDatabase.CONFLICT_REPLACE);
                 contentUri = ContentUris.withAppendedId(UriBuilder.buildUserUri(), id);
                 break;
@@ -105,17 +105,17 @@ public class TProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
         Cursor cursor;
-        SQLiteDatabase db = mScDbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
-                queryBuilder.setTables(GCDataBase.USER_TABLE);
+                queryBuilder.setTables(TlDataBase.USER_TABLE);
                 cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
             case Code.SINGLE_USER:
-                queryBuilder.setTables(GCDataBase.USER_TABLE);
+                queryBuilder.setTables(TlDataBase.USER_TABLE);
                 cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
@@ -128,15 +128,15 @@ public class TProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         int deleteCount;
-        SQLiteDatabase db = mScDbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
 
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
-                deleteCount = db.delete(GCDataBase.USER_TABLE, selection, selectionArgs);
+                deleteCount = db.delete(TlDataBase.USER_TABLE, selection, selectionArgs);
                 break;
 
             case Code.SINGLE_USER:
-                deleteCount = db.delete(GCDataBase.USER_TABLE, selection, selectionArgs);
+                deleteCount = db.delete(TlDataBase.USER_TABLE, selection, selectionArgs);
                 break;
 
             default:
@@ -148,15 +148,15 @@ public class TProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         int updateCount;
-        SQLiteDatabase db = mScDbHelper.getWritableDatabase();
+        SQLiteDatabase db = mDataBaseHelper.getWritableDatabase();
 
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
-                updateCount = db.update(GCDataBase.USER_TABLE, values, selection, selectionArgs);
+                updateCount = db.update(TlDataBase.USER_TABLE, values, selection, selectionArgs);
                 break;
 
             case Code.SINGLE_USER:
-                updateCount = db.update(GCDataBase.USER_TABLE, values, selection, selectionArgs);
+                updateCount = db.update(TlDataBase.USER_TABLE, values, selection, selectionArgs);
                 break;
 
             default:

@@ -9,13 +9,13 @@ import com.sarkisian.template.db.entity.User;
 
 import java.util.ArrayList;
 
-public class GCDataBase {
+public class TlDataBase {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = GCDataBase.class.getName();
+    private static final String LOG_TAG = TlDataBase.class.getName();
 
     // ===========================================================
     // Fields
@@ -56,15 +56,15 @@ public class GCDataBase {
 
     public static class Projection {
         public static String[] USER = {
-                GCDataBase.USER_PK,
-                GCDataBase.USER_ID,
-                GCDataBase.USER_NAME,
-                GCDataBase.USER_FIRST_NAME,
-                GCDataBase.USER_LAST_NAME,
-                GCDataBase.USER_EMAIL,
-                GCDataBase.USER_PHONE_NUMBER,
-                GCDataBase.USER_LANGUAGE,
-                GCDataBase.USER_AVATAR
+                TlDataBase.USER_PK,
+                TlDataBase.USER_ID,
+                TlDataBase.USER_NAME,
+                TlDataBase.USER_FIRST_NAME,
+                TlDataBase.USER_LAST_NAME,
+                TlDataBase.USER_EMAIL,
+                TlDataBase.USER_PHONE_NUMBER,
+                TlDataBase.USER_LANGUAGE,
+                TlDataBase.USER_AVATAR
         };
 
         public static String[] COUNT = {
@@ -115,15 +115,15 @@ public class GCDataBase {
         ContentValues values = new ContentValues();
 
         switch (table) {
-            case GCDataBase.USER_TABLE:
+            case TlDataBase.USER_TABLE:
                 User user = (User) object;
-                values.put(GCDataBase.USER_ID, user.getId());
-                values.put(GCDataBase.USER_NAME, user.getName());
-                values.put(GCDataBase.USER_FIRST_NAME, user.getFirstName());
-                values.put(GCDataBase.USER_LAST_NAME, user.getLastName());
-                values.put(GCDataBase.USER_EMAIL, user.getEmail());
-                values.put(GCDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
-                values.put(GCDataBase.USER_AVATAR, user.getAvatar());
+                values.put(TlDataBase.USER_ID, user.getId());
+                values.put(TlDataBase.USER_NAME, user.getName());
+                values.put(TlDataBase.USER_FIRST_NAME, user.getFirstName());
+                values.put(TlDataBase.USER_LAST_NAME, user.getLastName());
+                values.put(TlDataBase.USER_EMAIL, user.getEmail());
+                values.put(TlDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
+                values.put(TlDataBase.USER_AVATAR, user.getAvatar());
                 break;
         }
         return values;
@@ -133,17 +133,17 @@ public class GCDataBase {
         ArrayList<ContentValues> valuesList = new ArrayList<>();
 
         switch (table) {
-            case GCDataBase.USER_TABLE:
+            case TlDataBase.USER_TABLE:
                 ArrayList<User> users = (ArrayList<User>) objects;
                 for (User user : users) {
                     ContentValues values = new ContentValues();
-                    values.put(GCDataBase.USER_ID, user.getId());
-                    values.put(GCDataBase.USER_NAME, user.getName());
-                    values.put(GCDataBase.USER_FIRST_NAME, user.getFirstName());
-                    values.put(GCDataBase.USER_LAST_NAME, user.getLastName());
-                    values.put(GCDataBase.USER_EMAIL, user.getEmail());
-                    values.put(GCDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
-                    values.put(GCDataBase.USER_AVATAR, user.getAvatar());
+                    values.put(TlDataBase.USER_ID, user.getId());
+                    values.put(TlDataBase.USER_NAME, user.getName());
+                    values.put(TlDataBase.USER_FIRST_NAME, user.getFirstName());
+                    values.put(TlDataBase.USER_LAST_NAME, user.getLastName());
+                    values.put(TlDataBase.USER_EMAIL, user.getEmail());
+                    values.put(TlDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
+                    values.put(TlDataBase.USER_AVATAR, user.getAvatar());
                     valuesList.add(values);
                 }
                 break;

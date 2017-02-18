@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.db.entity.User;
-import com.sarkisian.template.db.handler.TQueryHandler;
+import com.sarkisian.template.db.handler.TlQueryHandler;
 import com.sarkisian.template.io.bus.BusProvider;
 import com.sarkisian.template.io.bus.event.ApiEvent;
 import com.sarkisian.template.io.bus.event.Event;
@@ -19,13 +19,13 @@ import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Preference;
 
 
-public class TIntentService extends IntentService {
+public class TlIntentService extends IntentService {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TIntentService.class.getSimpleName();
+    private static final String LOG_TAG = TlIntentService.class.getSimpleName();
 
     private class Extra {
         static final String URL = "URL";
@@ -42,8 +42,8 @@ public class TIntentService extends IntentService {
     // Constructors
     // ===========================================================
 
-    public TIntentService() {
-        super(TIntentService.class.getName());
+    public TlIntentService() {
+        super(TlIntentService.class.getName());
     }
 
     // ===========================================================
@@ -67,7 +67,7 @@ public class TIntentService extends IntentService {
 
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TIntentService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlIntentService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -77,7 +77,7 @@ public class TIntentService extends IntentService {
 
     public static void start(Context context, String subscriber, String url,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TIntentService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlIntentService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -129,7 +129,7 @@ public class TIntentService extends IntentService {
 
         // Save user in DB (in template we create fake user, in your project
         // get server user after login, or implement it how you need)
-        TQueryHandler.addUser(this, new User(145, "David Berligon", "david.berligon@db.com"));
+        TlQueryHandler.addUser(this, new User(145, "David Berligon", "david.berligon@db.com"));
 
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGIN_COMPLETED, subscriber));
 

@@ -4,20 +4,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.sarkisian.template.db.GCDataBase;
+import com.sarkisian.template.db.TlDataBase;
 import com.sarkisian.template.db.cursor.CursorReader;
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.provider.UriBuilder;
 
 import java.util.ArrayList;
 
-public class TQueryHandler {
+public class TlQueryHandler {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private final static String LOG_TAG = TQueryHandler.class.getSimpleName();
+    private final static String LOG_TAG = TlQueryHandler.class.getSimpleName();
 
     // ===========================================================
     // Fields
@@ -50,22 +50,22 @@ public class TQueryHandler {
     public synchronized static void addUser(Context context, User user) {
         context.getContentResolver().insert(
                 UriBuilder.buildUserUri(),
-                GCDataBase.composeValues(user, GCDataBase.USER_TABLE)
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE)
         );
     }
 
     public synchronized static void addUsers(Context context, ArrayList<User> userArrayList) {
         context.getContentResolver().bulkInsert(
                 UriBuilder.buildUserUri(),
-                GCDataBase.composeValuesArray(userArrayList, GCDataBase.USER_TABLE)
+                TlDataBase.composeValuesArray(userArrayList, TlDataBase.USER_TABLE)
         );
     }
 
     public synchronized static void updateUser(Context context, User user) {
         context.getContentResolver().update(
                 UriBuilder.buildUserUri(),
-                GCDataBase.composeValues(user, GCDataBase.USER_TABLE),
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -74,8 +74,8 @@ public class TQueryHandler {
         for (User user : users) {
             context.getContentResolver().update(
                     UriBuilder.buildUserUri(),
-                    GCDataBase.composeValues(user, GCDataBase.USER_TABLE),
-                    GCDataBase.USER_ID + "=?",
+                    TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                    TlDataBase.USER_ID + "=?",
                     new String[]{String.valueOf(user.getId())}
             );
         }
@@ -84,8 +84,8 @@ public class TQueryHandler {
     public synchronized static User getUser(Context context, long id) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(),
-                GCDataBase.Projection.USER,
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.Projection.USER,
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null
         );
@@ -95,7 +95,7 @@ public class TQueryHandler {
     public synchronized static ArrayList<User> getUsers(Context context) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(),
-                GCDataBase.Projection.USER,
+                TlDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -106,7 +106,7 @@ public class TQueryHandler {
     public synchronized static void deleteUser(Context context, User user) {
         context.getContentResolver().delete(
                 UriBuilder.buildUserUri(),
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -126,7 +126,7 @@ public class TQueryHandler {
     public synchronized static boolean isTableEmpty(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(
                 uri,
-                GCDataBase.Projection.COUNT,
+                TlDataBase.Projection.COUNT,
                 null,
                 null,
                 null

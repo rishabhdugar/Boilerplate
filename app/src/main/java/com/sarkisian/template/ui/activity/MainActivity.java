@@ -19,7 +19,7 @@ import com.sarkisian.template.io.bus.event.Event;
 import com.sarkisian.template.io.bus.event.NetworkEvent;
 import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.util.APIUtil;
-import com.sarkisian.template.io.service.TIntentService;
+import com.sarkisian.template.io.service.TlIntentService;
 import com.sarkisian.template.util.AppUtil;
 import com.sarkisian.template.util.manager.SnackBarManager;
 import com.google.common.eventbus.Subscribe;
@@ -171,7 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.nav_six:
-                TIntentService.start(
+                TlIntentService.start(
                         MainActivity.this,
                         MainActivity.class.getSimpleName(),
                         APIUtil.getURL(LOGOUT),

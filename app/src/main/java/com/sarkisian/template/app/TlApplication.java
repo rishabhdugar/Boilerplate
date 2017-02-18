@@ -2,13 +2,13 @@ package com.sarkisian.template.app;
 
 import android.app.Application;
 
-public class TApplication extends Application {
+public class TlApplication extends Application {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TApplication.class.getName();
+    private static final String LOG_TAG = TlApplication.class.getName();
 
     // ===========================================================
     // Fields

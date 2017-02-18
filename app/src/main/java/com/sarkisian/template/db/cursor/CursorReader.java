@@ -3,7 +3,7 @@ package com.sarkisian.template.db.cursor;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
 
-import com.sarkisian.template.db.GCDataBase;
+import com.sarkisian.template.db.TlDataBase;
 import com.sarkisian.template.db.entity.User;
 
 import java.util.ArrayList;
@@ -79,14 +79,14 @@ public class CursorReader {
 
     private static User composeUser(Cursor cursor) {
         User user = new User();
-        user.setPk(cursor.getLong(cursor.getColumnIndex(GCDataBase.USER_PK)));
-        user.setId(cursor.getLong(cursor.getColumnIndex(GCDataBase.USER_ID)));
-        user.setName(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_NAME)));
-        user.setFirstName(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_FIRST_NAME)));
-        user.setLastName(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_LAST_NAME)));
-        user.setEmail(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_EMAIL)));
-        user.setPhoneNumber(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_PHONE_NUMBER)));
-        user.setAvatar(cursor.getString(cursor.getColumnIndex(GCDataBase.USER_AVATAR)));
+        user.setPk(cursor.getLong(cursor.getColumnIndex(TlDataBase.USER_PK)));
+        user.setId(cursor.getLong(cursor.getColumnIndex(TlDataBase.USER_ID)));
+        user.setName(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_NAME)));
+        user.setFirstName(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_FIRST_NAME)));
+        user.setLastName(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_LAST_NAME)));
+        user.setEmail(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_EMAIL)));
+        user.setPhoneNumber(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_PHONE_NUMBER)));
+        user.setAvatar(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_AVATAR)));
         return user;
     }
 

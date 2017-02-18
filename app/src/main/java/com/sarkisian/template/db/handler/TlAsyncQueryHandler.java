@@ -5,19 +5,19 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.sarkisian.template.db.GCDataBase;
+import com.sarkisian.template.db.TlDataBase;
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.provider.UriBuilder;
 
 import java.lang.ref.WeakReference;
 
-public class TAsyncQueryHandler extends AsyncQueryHandler {
+public class TlAsyncQueryHandler extends AsyncQueryHandler {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private final static String LOG_TAG = TAsyncQueryHandler.class.getSimpleName();
+    private final static String LOG_TAG = TlAsyncQueryHandler.class.getSimpleName();
 
     public static class QueryToken {
         public static final int GET_USER = 100;
@@ -52,8 +52,8 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
     // Constructors
     // ===========================================================
 
-    public TAsyncQueryHandler(ContentResolver contentResolver,
-                              AsyncQueryListener queryListenerReference) {
+    public TlAsyncQueryHandler(ContentResolver contentResolver,
+                               AsyncQueryListener queryListenerReference) {
         super(contentResolver);
         mQueryListenerReference = new WeakReference<>(queryListenerReference);
     }
@@ -121,8 +121,8 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.GET_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                GCDataBase.Projection.USER,
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.Projection.USER,
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(userId)},
                 null
         );
@@ -133,7 +133,7 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.GET_USERS,
                 null,
                 UriBuilder.buildUserUri(),
-                GCDataBase.Projection.USER,
+                TlDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -145,7 +145,7 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.ADD_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                GCDataBase.composeValues(user, GCDataBase.USER_TABLE)
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE)
         );
     }
 
@@ -154,8 +154,8 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.UPDATE_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                GCDataBase.composeValues(user, GCDataBase.USER_TABLE),
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -165,7 +165,7 @@ public class TAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.DELETE_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                GCDataBase.USER_ID + "=?",
+                TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
