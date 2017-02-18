@@ -23,7 +23,7 @@
     <string name="text_four">Fourth item</string>
     <string name="text_five">Fifth item</string>
     <string name="text_six">Logout</string>
-    <string name="text_welcome">Welcome to "Start Template" \nPlease, login with any fake credentials</string>
+    <string name="text_welcome">Welcome to \'Start Template\' \nPlease, login with any fake credentials</string>
 
     <!--Auth screen edt hints-->
     <string name="hint_tiet_auth_email">Email</string>
