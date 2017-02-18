@@ -144,10 +144,10 @@ public class RestHttpClient {
      */
     public static HttpConnection executePostRequest(Context context, String url, Bundle bundle) {
         Object token = null;
-        String data = null;
+        String postEntity = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
-            data = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
+            postEntity = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
         }
 
         HttpConnection httpConnection = new HttpConnection();
@@ -171,7 +171,7 @@ public class RestHttpClient {
             httpURLConnection.connect();
 
             OutputStream out = httpURLConnection.getOutputStream();
-            out.write(data != null ? data.getBytes(UTF_8) : new byte[]{0});
+            out.write(postEntity != null ? postEntity.getBytes(UTF_8) : new byte[]{0});
             out.flush();
             out.close();
 
@@ -225,10 +225,10 @@ public class RestHttpClient {
      */
     public static HttpConnection executePatchRequest(Context context, String url, Bundle bundle) {
         Object token = null;
-        String data = null;
+        String postEntity = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
-            data = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
+            postEntity = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
         }
 
         HttpConnection httpConnection = new HttpConnection();
@@ -253,7 +253,7 @@ public class RestHttpClient {
             httpURLConnection.connect();
 
             OutputStream out = httpURLConnection.getOutputStream();
-            out.write(data != null ? data.getBytes(UTF_8) : new byte[]{0});
+            out.write(postEntity != null ? postEntity.getBytes(UTF_8) : new byte[]{0});
             out.flush();
             out.close();
 
@@ -307,10 +307,10 @@ public class RestHttpClient {
      */
     public static HttpConnection executePutRequest(Context context, String url, Bundle bundle) {
         Object token = null;
-        String data = null;
+        String postEntity = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
-            data = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
+            postEntity = String.valueOf(bundle.get(BundleData.JSON_ENTITY));
         }
 
         HttpConnection httpConnection = new HttpConnection();
@@ -334,7 +334,7 @@ public class RestHttpClient {
             httpURLConnection.connect();
 
             OutputStream out = httpURLConnection.getOutputStream();
-            out.write(data != null ? data.getBytes(UTF_8) : new byte[]{0});
+            out.write(postEntity != null ? postEntity.getBytes(UTF_8) : new byte[]{0});
             out.flush();
             out.close();
 

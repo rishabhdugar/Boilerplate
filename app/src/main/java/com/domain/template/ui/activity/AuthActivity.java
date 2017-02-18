@@ -178,7 +178,6 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
     private void grabDataAndSingIn(String mail, String pass) {
         boolean isValidationSucceeded = true;
-        DialogManager.getInstance().showPreloader(this);
 
         // validate password (empty or not)
         if (pass.trim().length() == 0) {
@@ -192,8 +191,10 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
             mTilEmail.setError(getString(R.string.msg_edt_pass_error));
         }
 
-        // if required fields are filled up then proceed with sign in
+        // if required fields are filled up then proceed with login
         if (isValidationSucceeded) {
+            DialogManager.getInstance().showPreloader(this);
+
             mTilEmail.setErrorEnabled(false);
             mTilPass.setErrorEnabled(false);
 
@@ -209,7 +210,7 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
                     getClass().getSimpleName(),
                     APIUtil.getURL(APIUtil.LOGIN),
                     postEntity,
-                    HttpRequestManager.RequestType.LOGIN_IN
+                    HttpRequestManager.RequestType.LOG_IN
             );
         }
     }

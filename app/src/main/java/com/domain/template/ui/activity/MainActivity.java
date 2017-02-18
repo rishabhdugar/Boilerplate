@@ -11,17 +11,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.domain.template.util.AppUtil;
-import com.domain.template.util.Preference;
-import com.google.common.eventbus.Subscribe;
-import com.domain.template.R;
-import com.domain.template.io.bus.event.ApiEvent;
-
 import com.domain.template.BuildConfig;
+import com.domain.template.R;
 import com.domain.template.io.bus.BusProvider;
+import com.domain.template.io.bus.event.ApiEvent;
 import com.domain.template.io.bus.event.Event;
 import com.domain.template.io.bus.event.NetworkEvent;
+import com.domain.template.io.rest.HttpRequestManager;
+import com.domain.template.io.rest.util.APIUtil;
+import com.domain.template.io.service.TIntentService;
+import com.domain.template.util.AppUtil;
 import com.domain.template.util.manager.SnackBarManager;
+import com.google.common.eventbus.Subscribe;
+
+import static com.domain.template.io.rest.util.APIUtil.LOGOUT;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -111,6 +114,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private void handleApiEvents(ApiEvent event) {
         switch (event.getEventType()) {
+            case Event.EventType.Api.LOGOUT_COMPLETED:
+                AppUtil.logOutFromApp(this);
+                break;
+
             case Event.EventType.Api.Error.NO_NETWORK:
                 SnackBarManager.show(this, getString(R.string.msg_network_connection_error),
                         SnackBarManager.Duration.LONG);
@@ -162,11 +169,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
             case R.id.nav_five:
                 break;
+
             case R.id.nav_six:
-                // TODO: 1/10/17
-                Preference.getInstance(this).setUserToken(null);
-                Preference.getInstance(this).setUserName(null);
-                AppUtil.logOutFromApp(this);
+                TIntentService.start(
+                        MainActivity.this,
+                        MainActivity.class.getSimpleName(),
+                        APIUtil.getURL(LOGOUT),
+                        HttpRequestManager.RequestType.LOG_OUT
+                );
                 break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);

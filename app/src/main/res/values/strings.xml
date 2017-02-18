@@ -1,9 +1,9 @@
 <resources>
 
-    <!--main-->
+    <!--Main-->
     <string name="app_name">Template</string>
 
-    <!--util-->
+    <!--Util-->
     <string name="msg_network_connection_error">No Internet connection</string>
     <string name="msg_page_not_found">404 Page not found</string>
     <string name="msg_unknown_error">Unknown error</string>
@@ -13,23 +13,23 @@
     <string name="msg_navigation_drawer_open">Open navigation drawer</string>
     <string name="msg_navigation_drawer_close">Close navigation drawer</string>
 
-    <!--Sing in screen strings-->
-    <string name="text_btn_auth_sign">SIGN IN</string>
+    <!--Auth screen strings-->
+    <string name="text_btn_auth_sign">Login</string>
 
     <!--Navigation drawer menu items-->
-    <string name="text_one">One</string>
-    <string name="text_two">Two</string>
-    <string name="text_three">Three</string>
-    <string name="text_four">Four</string>
-    <string name="text_five">Five</string>
-    <string name="text_six">Six</string>
-    <string name="text_welcome">Welcome to start template. Please sign in with any fake credentials.</string>
+    <string name="text_one">First item</string>
+    <string name="text_two">Second item</string>
+    <string name="text_three">Third item</string>
+    <string name="text_four">Fourth item</string>
+    <string name="text_five">Fifth item</string>
+    <string name="text_six">Logout</string>
+    <string name="text_welcome">Welcome to "Start Template" \nPlease, login with any fake credentials</string>
 
-    <!--auth screen edt hints-->
-    <string name="hint_tiet_auth_email">EMAIL</string>
-    <string name="hint_tiet_auth_pass">PASSWORD</string>
+    <!--Auth screen edt hints-->
+    <string name="hint_tiet_auth_email">Email</string>
+    <string name="hint_tiet_auth_pass">Password</string>
 
-    <!--edt errors-->
+    <!--Edt errors-->
     <string name="msg_edt_error_mail">Enter email</string>
     <string name="msg_edt_pass_error">Enter password</string>
 

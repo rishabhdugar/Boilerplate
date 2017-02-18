@@ -5,8 +5,8 @@ import com.domain.template.BuildConfig;
 
 public class APIUtil {
 
-    private static final String HOST_PRODUCTION = "http://domain.com";
-    private static final String HOST_STAGING = "http://domain.com";
+    private static final String HOST_PRODUCTION = "http://your_domain.com";
+    private static final String HOST_STAGING = "http://your_domain.com";
 
     public static final String LOGIN = "/api/auth/login/";
     public static final String LOGOUT = "/api/auth/logout/";

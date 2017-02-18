@@ -12,16 +12,23 @@
         android:gravity="center"
         android:orientation="vertical">
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            android:src="@drawable/img_android_logo"/>
+
         <TextView
             android:layout_width="match_parent"
-            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:paddingLeft="50dp"
-            android:layout_marginBottom="30dp"
             android:paddingRight="50dp"
-            android:textColor="@android:color/white"
             android:text="@string/text_welcome"
-            android:layout_height="wrap_content"/>
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_auth_email"
@@ -29,7 +36,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:paddingTop="18dp"
+            android:paddingTop="10dp"
             android:textColorHint="@color/color_b9ffffff">
 
             <android.support.design.widget.TextInputEditText
@@ -41,7 +48,6 @@
                 android:maxLines="1"
                 android:minLines="1"
                 android:paddingBottom="15dp"
-                android:paddingTop="15dp"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"/>
 
@@ -53,7 +59,6 @@
             android:layout_height="wrap_content"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:paddingTop="18dp"
             android:textColorHint="@color/color_b9ffffff">
 
             <android.support.design.widget.TextInputEditText

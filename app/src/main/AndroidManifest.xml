@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:name=".db.provider.TProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
