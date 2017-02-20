@@ -3,9 +3,7 @@ package com.sarkisian.template.io.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.handler.TlQueryHandler;
 import com.sarkisian.template.io.bus.BusProvider;
@@ -16,6 +14,7 @@ import com.sarkisian.template.io.rest.RestHttpClient;
 import com.sarkisian.template.io.rest.entity.HttpConnection;
 import com.sarkisian.template.io.rest.util.HttpErrorUtil;
 import com.sarkisian.template.util.Constant;
+import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
 
@@ -94,7 +93,7 @@ public class TlIntentService extends IntentService {
         String data = intent.getExtras().getString(Extra.POST_ENTITY);
         String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
         int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
-        if (BuildConfig.isDEBUG) Log.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
+        Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
 
         switch (requestType) {
             case HttpRequestManager.RequestType.LOG_IN:
@@ -136,7 +135,7 @@ public class TlIntentService extends IntentService {
         if (httpConnection.isHttpConnectionSucceeded()) {
             String token = httpConnection.getHttpResponseHeader().getToken();
             if (token != null) {
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, token);
+                Logger.i(LOG_TAG, token);
 
                 // Save necessary data after success login
 
@@ -146,7 +145,7 @@ public class TlIntentService extends IntentService {
             }
 
         } else {
-            if (BuildConfig.isDEBUG) Log.e(LOG_TAG, httpConnection.getHttpConnectionMessage()
+            Logger.e(LOG_TAG, httpConnection.getHttpConnectionMessage()
                     + Constant.Symbol.SPACE + httpConnection.getHttpConnectionCode());
             handleFailedConnection(subscriber, httpConnection);
         }
@@ -172,7 +171,7 @@ public class TlIntentService extends IntentService {
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
 
         if (httpConnection.isHttpConnectionSucceeded()) {
-            Log.i(LOG_TAG, "Logged out on server");
+            Logger.i(LOG_TAG, "Logged out on server");
         }
     }
 

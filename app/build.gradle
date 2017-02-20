@@ -40,14 +40,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
             debuggable true
-            buildConfigField "boolean", "isDEBUG", "true"
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             debuggable false
-            buildConfigField "boolean", "isDEBUG", "false"
         }
     }
 }

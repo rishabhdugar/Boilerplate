@@ -12,7 +12,7 @@ public class PostEntityUtil {
     public static String composeSignInPostEntity(String email, String pass) {
         String entityString = "{\"email\": \"" + EncodeUtil.escapeString(email)
                 + "\", \"password\": \"" + EncodeUtil.escapeString(pass) + "\"}";
-        if (BuildConfig.isDEBUG) Log.i(LOG_TAG, entityString);
+        Logger.i(LOG_TAG, entityString);
         return entityString;
     }
 

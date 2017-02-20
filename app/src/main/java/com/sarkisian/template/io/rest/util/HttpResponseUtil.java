@@ -1,12 +1,11 @@
 package com.sarkisian.template.io.rest.util;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.io.rest.entity.HttpConnection;
 import com.sarkisian.template.io.rest.entity.HttpResponseHeader;
 import com.sarkisian.template.util.Constant;
+import com.sarkisian.template.util.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class HttpResponseUtil {
             try {
                 httpResponseCode = httpURLConnection.getResponseCode();
                 httpResponseMsg = httpURLConnection.getResponseMessage();
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, String.valueOf(httpResponseCode) + Constant.Symbol.SPACE + httpResponseMsg);
+                Logger.i(LOG_TAG, String.valueOf(httpResponseCode) + Constant.Symbol.SPACE + httpResponseMsg);
 
                  /* 2XX: generally "OK"
                     3XX: relocation/redirect
@@ -85,7 +84,7 @@ public class HttpResponseUtil {
                     }
                     bufferedReader.close();
 
-                    if (BuildConfig.isDEBUG) Log.i(LOG_TAG, responseStrBuilder.toString());
+                    Logger.i(LOG_TAG, responseStrBuilder.toString());
 
                     httpConnection.setHttpConnectionCode(httpResponseCode);
                     httpConnection.setHttpConnectionMessage(httpResponseMsg);
@@ -164,7 +163,7 @@ public class HttpResponseUtil {
                 httpResponseHeader.setHttpConnectionCode(httpResponseCode);
                 httpResponseHeader.setHttpConnectionMessage(httpResponseMsg);
 
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Request header data: "
+                Logger.i(LOG_TAG, "Request header data: "
                         + "\nToken - " + httpResponseHeader.getToken()
                         + "\neTag - " + httpResponseHeader.getETag()
                         + "\nLast-Modified - " + httpResponseHeader.getLastModified());

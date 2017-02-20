@@ -118,25 +118,25 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case Event.EventType.Api.Error.PAGE_NOT_FOUND:
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_page_not_found));
+                Logger.i(LOG_TAG, getString(R.string.msg_page_not_found));
                 break;
 
             case Event.EventType.Api.Error.BAD_REQUEST:
                 String body = (String) event.getEventData();
                 if (body != null) {
                     SnackBarManager.show(this, body, SnackBarManager.Duration.LONG);
-                    if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_bad_request) + body);
+                    Logger.i(LOG_TAG, getString(R.string.msg_bad_request) + body);
                 }
                 break;
 
             case Event.EventType.Api.Error.UNAUTHORIZED:
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_not_authorized));
+                Logger.i(LOG_TAG, getString(R.string.msg_not_authorized));
                 break;
 
             case Event.EventType.Api.Error.UNKNOWN:
                 SnackBarManager.show(this, getString(R.string.msg_unknown_error),
                         SnackBarManager.Duration.LONG);
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_unknown_error));
+                Logger.i(LOG_TAG, getString(R.string.msg_unknown_error));
                 break;
         }
     }

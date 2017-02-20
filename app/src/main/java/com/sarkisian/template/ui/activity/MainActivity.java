@@ -7,11 +7,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.sarkisian.template.BuildConfig;
+import com.google.common.eventbus.Subscribe;
 import com.sarkisian.template.R;
 import com.sarkisian.template.io.bus.BusProvider;
 import com.sarkisian.template.io.bus.event.ApiEvent;
@@ -21,8 +20,8 @@ import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.util.APIUtil;
 import com.sarkisian.template.io.service.TlIntentService;
 import com.sarkisian.template.util.AppUtil;
+import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.manager.SnackBarManager;
-import com.google.common.eventbus.Subscribe;
 
 import static com.sarkisian.template.io.rest.util.APIUtil.LOGOUT;
 
@@ -69,6 +68,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         customizeActionBar();
         initDrawer();
         openScreen();
+        Logger.i(LOG_TAG, "abrakadabra");
     }
 
     @Override
@@ -124,25 +124,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case Event.EventType.Api.Error.PAGE_NOT_FOUND:
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_page_not_found));
+                Logger.i(LOG_TAG, getString(R.string.msg_page_not_found));
                 break;
 
             case Event.EventType.Api.Error.BAD_REQUEST:
                 String body = (String) event.getEventData();
                 if (body != null) {
                     SnackBarManager.show(this, body, SnackBarManager.Duration.LONG);
-                    if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_bad_request) + body);
+                    Logger.i(LOG_TAG, getString(R.string.msg_bad_request) + body);
                 }
                 break;
 
             case Event.EventType.Api.Error.UNAUTHORIZED:
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_not_authorized));
+                Logger.i(LOG_TAG, getString(R.string.msg_not_authorized));
                 break;
 
             case Event.EventType.Api.Error.UNKNOWN:
                 SnackBarManager.show(this, getString(R.string.msg_unknown_error),
                         SnackBarManager.Duration.LONG);
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, getString(R.string.msg_unknown_error));
+                Logger.i(LOG_TAG, getString(R.string.msg_unknown_error));
                 break;
         }
     }

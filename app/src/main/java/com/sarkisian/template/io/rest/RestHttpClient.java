@@ -80,11 +80,11 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
             }
 
@@ -94,7 +94,7 @@ public class RestHttpClient {
             httpURLConnection.setUseCaches(false);
             httpURLConnection.connect();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -110,26 +110,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error");
+                Logger.e(LOG_TAG, "Internet connection error");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
@@ -154,12 +154,12 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
             }
 
             httpURLConnection.setRequestMethod(RequestMethod.POST);
@@ -175,7 +175,7 @@ public class RestHttpClient {
             out.flush();
             out.close();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -191,26 +191,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error ");
+                Logger.e(LOG_TAG, "Internet connection error ");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
@@ -235,12 +235,12 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
             }
 
             httpURLConnection.setRequestMethod(RequestMethod.PUT);
@@ -257,7 +257,7 @@ public class RestHttpClient {
             out.flush();
             out.close();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -273,26 +273,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error ");
+                Logger.e(LOG_TAG, "Internet connection error ");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
@@ -317,12 +317,12 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
             }
 
             httpURLConnection.setRequestMethod(RequestMethod.PUT);
@@ -338,7 +338,7 @@ public class RestHttpClient {
             out.flush();
             out.close();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -354,26 +354,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error ");
+                Logger.e(LOG_TAG, "Internet connection error ");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
@@ -396,11 +396,11 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
             }
 
@@ -410,7 +410,7 @@ public class RestHttpClient {
             httpURLConnection.setUseCaches(false);
             httpURLConnection.connect();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -426,26 +426,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error ");
+                Logger.e(LOG_TAG, "Internet connection error ");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
@@ -470,11 +470,11 @@ public class RestHttpClient {
         HttpURLConnection httpURLConnection = null;
 
         try {
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Calling URL: " + url);
+            Logger.i(LOG_TAG, "Calling URL: " + url);
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
 
             if (token != null) {
-                if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Token: " + String.valueOf(token));
+                Logger.i(LOG_TAG, "Token: " + String.valueOf(token));
                 httpURLConnection.setRequestProperty(Header.AUTHORIZATION, TOKEN_VALUE + token);
             }
 
@@ -484,7 +484,7 @@ public class RestHttpClient {
             httpURLConnection.setUseCaches(false);
             httpURLConnection.connect();
 
-            if (BuildConfig.isDEBUG) Log.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
+            Logger.i(LOG_TAG, "Server response: " + String.valueOf(httpURLConnection.getResponseCode())
                     + Constant.Symbol.SPACE + httpURLConnection.getResponseMessage());
 
             httpConnection.setHttpURLConnection(httpURLConnection);
@@ -500,26 +500,26 @@ public class RestHttpClient {
             }
 
             if (!NetworkUtil.getInstance().isConnected(context)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Internet connection error ");
+                Logger.e(LOG_TAG, "Internet connection error ");
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection time out " + url);
+                Logger.e(LOG_TAG, "Connection time out " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                if (BuildConfig.isDEBUG) Log.e(LOG_TAG, "Connection refused by server " + url);
+                Logger.e(LOG_TAG, "Connection refused by server " + url);
                 httpConnection.setHttpConnectionSucceeded(false);
                 httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
                 httpConnection.setHttpConnectionMessage(e.getMessage());
 
             } else {
                 if (e.getMessage() != null) {
-                    if (BuildConfig.isDEBUG) Log.e(LOG_TAG, e.getMessage());
+                    Logger.e(LOG_TAG, e.getMessage());
                     httpConnection.setHttpConnectionSucceeded(false);
                     httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
                     httpConnection.setHttpConnectionMessage(e.getMessage());
