@@ -1,9 +1,7 @@
 package com.sarkisian.template.io.rest.util;
 
-import android.util.Log;
-
-import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.util.EncodeUtil;
+import com.sarkisian.template.util.Logger;
 
 public class PostEntityUtil {
 

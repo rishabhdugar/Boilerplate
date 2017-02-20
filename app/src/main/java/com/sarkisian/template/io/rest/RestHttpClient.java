@@ -2,13 +2,12 @@ package com.sarkisian.template.io.rest;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.sarkisian.template.io.rest.entity.HttpConnection;
 import com.sarkisian.template.io.rest.util.HttpErrorUtil;
 import com.sarkisian.template.util.Constant;
+import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.NetworkUtil;
-import com.sarkisian.template.BuildConfig;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;

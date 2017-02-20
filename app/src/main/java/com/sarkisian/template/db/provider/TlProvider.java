@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.db.TlDataBase;
 import com.sarkisian.template.db.TlDataBaseHelper;
+import com.sarkisian.template.util.UnsupportedUriException;
 
 
 public class TlProvider extends ContentProvider {
@@ -77,7 +78,7 @@ public class TlProvider extends ContentProvider {
                 return ContentType.SINGLE_USER;
 
             default:
-                throw new IllegalArgumentException("Unsupported URI " + uri);
+                throw new UnsupportedUriException(uri.toString());
         }
     }
 
@@ -96,7 +97,7 @@ public class TlProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unsupported URI " + uri);
+                throw new UnsupportedUriException(uri.toString());
         }
         return contentUri;
     }
@@ -120,7 +121,7 @@ public class TlProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unsupported URI " + uri);
+                throw new UnsupportedUriException(uri.toString());
         }
         return cursor;
     }
@@ -140,7 +141,7 @@ public class TlProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unsupported URI " + uri);
+                throw new UnsupportedUriException(uri.toString());
         }
         return deleteCount;
     }
@@ -160,7 +161,7 @@ public class TlProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unsupported URI " + uri);
+                throw new UnsupportedUriException(uri.toString());
         }
         return updateCount;
     }

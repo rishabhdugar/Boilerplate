@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.sarkisian.template.BuildConfig;
+import com.google.common.eventbus.Subscribe;
 import com.sarkisian.template.R;
 import com.sarkisian.template.io.bus.BusProvider;
 import com.sarkisian.template.io.bus.event.ApiEvent;
@@ -20,9 +19,9 @@ import com.sarkisian.template.io.rest.util.APIUtil;
 import com.sarkisian.template.io.rest.util.PostEntityUtil;
 import com.sarkisian.template.io.service.TlIntentService;
 import com.sarkisian.template.util.AppUtil;
+import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.manager.DialogManager;
 import com.sarkisian.template.util.manager.SnackBarManager;
-import com.google.common.eventbus.Subscribe;
 
 public class AuthActivity extends BaseActivity implements View.OnClickListener {
 

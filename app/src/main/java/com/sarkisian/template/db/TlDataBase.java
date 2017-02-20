@@ -2,10 +2,8 @@ package com.sarkisian.template.db;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import com.sarkisian.template.BuildConfig;
 import com.sarkisian.template.db.entity.User;
+import com.sarkisian.template.util.Logger;
 
 import java.util.ArrayList;
 
