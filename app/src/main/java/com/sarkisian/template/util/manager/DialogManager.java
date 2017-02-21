@@ -110,8 +110,8 @@ public class DialogManager {
                 && startClass.getName().contains(mContextClassName)) {
             if (isAlertDialogShowing(startClass)) {
                 mAlertDialog.dismiss();
-                mAlertDialog = null;
             }
+            mAlertDialog = null;
         }
     }
 
@@ -120,8 +120,8 @@ public class DialogManager {
                 && startClass.getName().contains(mContextClassName)) {
             if (isPreloaderDialogShowing(startClass)) {
                 mPreloaderDialog.dismiss();
-                mPreloaderDialog = null;
             }
+            mPreloaderDialog = null;
         }
     }
 
@@ -130,8 +130,8 @@ public class DialogManager {
                 && startClass.getName().contains(mContextClassName)) {
             if (isProgressDialogShowing(startClass)) {
                 mProgressDialog.dismiss();
-                mProgressDialog = null;
             }
+            mProgressDialog = null;
         }
     }
 
