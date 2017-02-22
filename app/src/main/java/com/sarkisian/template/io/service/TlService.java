@@ -70,7 +70,7 @@ public class TlService extends Service {
 
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlService.class);
+        Intent intent = new Intent(context, TlService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -80,7 +80,7 @@ public class TlService extends Service {
 
     public static void start(Context context, String subscriber, String url,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlService.class);
+        Intent intent = new Intent(context, TlService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -146,6 +146,7 @@ public class TlService extends Service {
                     break;
             }
 
+            // TODO: implement according to the project requirements
             // stopSelf(startId);
         }
     }
