@@ -47,7 +47,7 @@ public class HttpResponseUtil {
 
     public static HttpConnection handleConnection(Context context, HttpConnection httpConnection) {
 
-        StringBuilder responseStrBuilder = null;
+        StringBuilder responseStrBuilder = new StringBuilder();
         HttpURLConnection httpURLConnection = httpConnection.getHttpURLConnection();
 
         if (httpURLConnection != null) {
@@ -88,7 +88,7 @@ public class HttpResponseUtil {
 
                     httpConnection.setHttpConnectionCode(httpResponseCode);
                     httpConnection.setHttpConnectionMessage(httpResponseMsg);
-                    httpConnection.setHttpResponseHeader(readHeader(context, httpConnection));
+                    httpConnection.setHttpResponseHeader(readHeader(httpConnection));
                     httpConnection.setHttpResponseBody(responseStrBuilder);
 
                 } else {
@@ -97,7 +97,7 @@ public class HttpResponseUtil {
                         httpConnection.setHttpConnectionSucceeded(false);
                         httpConnection.setHttpConnectionCode(httpResponseCode);
                         httpConnection.setHttpConnectionMessage(httpResponseMsg);
-                        httpConnection.setHttpResponseHeader(readHeader(context, httpConnection));
+                        httpConnection.setHttpResponseHeader(readHeader(httpConnection));
                         httpConnection.setHttpResponseBody(responseStrBuilder);
 
                     } else if (httpResponseCode == HttpErrorUtil.NumericStatusCode.HTTP_NOT_FOUND) {
@@ -105,7 +105,7 @@ public class HttpResponseUtil {
                         httpConnection.setHttpConnectionSucceeded(false);
                         httpConnection.setHttpConnectionCode(httpResponseCode);
                         httpConnection.setHttpConnectionMessage(httpResponseMsg);
-                        httpConnection.setHttpResponseHeader(readHeader(context, httpConnection));
+                        httpConnection.setHttpResponseHeader(readHeader(httpConnection));
                         httpConnection.setHttpResponseBody(responseStrBuilder);
 
                     } else {
@@ -113,7 +113,7 @@ public class HttpResponseUtil {
                         httpConnection.setHttpConnectionSucceeded(false);
                         httpConnection.setHttpConnectionCode(httpResponseCode);
                         httpConnection.setHttpConnectionMessage(httpResponseMsg);
-                        httpConnection.setHttpResponseHeader(readHeader(context, httpConnection));
+                        httpConnection.setHttpResponseHeader(readHeader(httpConnection));
                         httpConnection.setHttpResponseBody(responseStrBuilder);
                     }
                 }
@@ -139,7 +139,7 @@ public class HttpResponseUtil {
         return httpConnection;
     }
 
-    private static HttpResponseHeader readHeader(Context context, HttpConnection httpConnection) {
+    private static HttpResponseHeader readHeader(HttpConnection httpConnection) {
 
         class Header {
             private static final String AUTHORIZATION = "Authorization";

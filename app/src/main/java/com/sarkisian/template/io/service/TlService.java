@@ -30,7 +30,7 @@ public class TlService extends Service {
     // ===========================================================
 
     private static final String LOG_TAG = TlService.class.getSimpleName();
-    private static final int THREAD_POOL_SIZE = 5;
+    private static final int THREAD_POOL_SIZE = 5; // Runtime.getRuntime().availableProcessors()
 
     private class Extra {
         static final String URL = "URL";
@@ -147,7 +147,7 @@ public class TlService extends Service {
             }
 
             // TODO: implement according to the project requirements
-            // stopSelf(startId);
+            stopSelf(startId);
         }
     }
 
