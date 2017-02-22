@@ -1,8 +1,10 @@
 package com.sarkisian.template.io.service;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.handler.TlQueryHandler;
@@ -17,14 +19,18 @@ import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class TlIntentService extends IntentService {
+
+public class TlService extends Service {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TlIntentService.class.getSimpleName();
+    private static final String LOG_TAG = TlService.class.getSimpleName();
+    private static final int THREAD_POOL_SIZE = 5;
 
     private class Extra {
         static final String URL = "URL";
@@ -37,13 +43,11 @@ public class TlIntentService extends IntentService {
     // Fields
     // ===========================================================
 
+    private ExecutorService mExecutorService;
+
     // ===========================================================
     // Constructors
     // ===========================================================
-
-    public TlIntentService() {
-        super(TlIntentService.class.getName());
-    }
 
     // ===========================================================
     // Getter & Setter
@@ -66,7 +70,7 @@ public class TlIntentService extends IntentService {
 
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlIntentService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -76,7 +80,7 @@ public class TlIntentService extends IntentService {
 
     public static void start(Context context, String subscriber, String url,
                              int requestType) {
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlIntentService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, context, TlService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -88,21 +92,60 @@ public class TlIntentService extends IntentService {
     // ===========================================================
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        String url = intent.getExtras().getString(Extra.URL);
-        String data = intent.getExtras().getString(Extra.POST_ENTITY);
-        String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
-        int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
-        Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
+    public void onCreate() {
+        super.onCreate();
+        mExecutorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    }
 
-        switch (requestType) {
-            case HttpRequestManager.RequestType.LOG_IN:
-                logInRequest(url, data, subscriber);
-                break;
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mExecutorService.execute(new RunnableTask(intent, startId));
+        return super.onStartCommand(intent, flags, startId);
+    }
 
-            case HttpRequestManager.RequestType.LOG_OUT:
-                logOutRequest(url, data, subscriber);
-                break;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    // ===========================================================
+    // Inner classes
+    // ===========================================================
+
+    class RunnableTask implements Runnable {
+
+        int startId;
+        Intent intent;
+
+        RunnableTask(Intent intent, int startId) {
+            this.startId = startId;
+            this.intent = intent;
+        }
+
+        public void run() {
+            String url = intent.getExtras().getString(Extra.URL);
+            String postEntity = intent.getExtras().getString(Extra.POST_ENTITY);
+            String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
+            int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
+            Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
+
+            switch (requestType) {
+                case HttpRequestManager.RequestType.LOG_IN:
+                    logInRequest(url, postEntity, subscriber);
+                    break;
+
+                case HttpRequestManager.RequestType.LOG_OUT:
+                    logOutRequest(url, subscriber);
+                    break;
+            }
+
+            stopSelf(startId);
         }
     }
 
@@ -110,14 +153,14 @@ public class TlIntentService extends IntentService {
     // Methods
     // ===========================================================
 
-    private void logInRequest(String url, String data, String subscriber) {
+    private void logInRequest(String url, String postEntity, String subscriber) {
 
         HttpConnection httpConnection = HttpRequestManager.executeRequest(
                 this,
                 RestHttpClient.RequestMethod.POST,
                 url,
                 null,
-                data
+                postEntity
         );
 
         /* For your project (with working API) move this code
@@ -151,14 +194,14 @@ public class TlIntentService extends IntentService {
         }
     }
 
-    private void logOutRequest(String url, String value, String subscriber) {
+    private void logOutRequest(String url, String subscriber) {
 
         HttpConnection httpConnection = HttpRequestManager.executeRequest(
                 this,
                 RestHttpClient.RequestMethod.POST,
                 url,
                 Preference.getInstance(this).getUserToken(),
-                value
+                null
         );
 
         /* Technically there is no sense to inform user that something went wrong by logout,

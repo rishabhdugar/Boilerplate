@@ -41,6 +41,10 @@
             android:name=".io.service.TlIntentService"
             android:exported="false"/>
 
+        <service
+            android:name=".io.service.TlService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
