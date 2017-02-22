@@ -100,12 +100,13 @@ public class TlService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mExecutorService.execute(new RunnableTask(intent, startId));
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mExecutorService.shutdown();
     }
 
     @Nullable
@@ -145,7 +146,7 @@ public class TlService extends Service {
                     break;
             }
 
-            stopSelf(startId);
+            // stopSelf(startId);
         }
     }
 
