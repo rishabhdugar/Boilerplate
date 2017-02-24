@@ -227,6 +227,7 @@ public class TlService extends Service {
     private void handleFailedConnection(String subscriber, HttpConnection httpConnection) {
         switch (httpConnection.getHttpConnectionCode()) {
             case HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK:
+            case HttpErrorUtil.NumericStatusCode.UNABLE_TO_RESOLVE_HOST:
                 BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.NO_NETWORK,
                         subscriber));
                 break;

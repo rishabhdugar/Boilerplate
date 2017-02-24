@@ -20,6 +20,12 @@ public class HttpErrorUtil {
          * Non-Numeric status code HTTP_CONNECTION_REFUSED: server refused connection
          */
         public static final String HTTP_CONNECTION_REFUSED = "ECONNREFUSED";
+
+        /**
+         * Non-Numeric status code UNABLE_TO_RESOLVE_HOST: can not access host due to some
+         * network connections problems
+         */
+        public static final String UNABLE_TO_RESOLVE_HOST = "Unable to resolve host";
     }
 
     public class NumericStatusCode {
@@ -204,23 +210,29 @@ public class HttpErrorUtil {
         public static final int HTTP_VERSION = 505;
 
         /**
-         * Numeric status code, 0: Server timeout
+         * Numeric status code, 1: Server timeout
          */
-        public static final int HTTP_SERVER_TIMEOUT = 0;
+        public static final int HTTP_SERVER_TIMEOUT = 1;
 
         /**
-         * Numeric status code, 1: e.g UnknownHostException: No address associated with hostname
+         * Numeric status code, 2: e.g UnknownHostException:
+         * Any not handled server or connection error
          */
-        public static final int HTTP_UNKNOWN_SERVER_ERROR = 1;
+        public static final int HTTP_UNKNOWN_SERVER_ERROR = 2;
 
         /**
-         * Numeric status code, 2: No internet connection
+         * Numeric status code, 3: No internet connection
          */
-        public static final int HTTP_NO_NETWORK = 2;
+        public static final int HTTP_NO_NETWORK = 3;
 
         /**
-         * Numeric status code, 3: Connection refused by server
+         * Numeric status code, 4: Unable to resolve host, no address associated with hostname.
          */
-        public static final int HTTP_CONNECTION_REFUSED = 3;
+        public static final int UNABLE_TO_RESOLVE_HOST = 4;
+
+        /**
+         * Numeric status code, 5: Connection refused by server
+         */
+        public static final int HTTP_CONNECTION_REFUSED = 5;
     }
 }

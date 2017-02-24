@@ -103,37 +103,7 @@ public class RestHttpClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
         return httpConnection;
     }
@@ -184,37 +154,7 @@ public class RestHttpClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error ");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
         return httpConnection;
     }
@@ -266,37 +206,7 @@ public class RestHttpClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error ");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
         return httpConnection;
     }
@@ -347,37 +257,7 @@ public class RestHttpClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error ");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
         return httpConnection;
     }
@@ -419,37 +299,7 @@ public class RestHttpClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error ");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
 
         return httpConnection;
@@ -494,38 +344,52 @@ public class RestHttpClient {
         } catch (Exception e) {
             e.printStackTrace();
 
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-
-            if (!NetworkUtil.getInstance().isConnected(context)) {
-                Logger.e(LOG_TAG, "Internet connection error ");
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
-                Logger.e(LOG_TAG, "Connection time out " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else if (e.getMessage() != null && e.getMessage().contains(HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
-                Logger.e(LOG_TAG, "Connection refused by server " + url);
-                httpConnection.setHttpConnectionSucceeded(false);
-                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
-                httpConnection.setHttpConnectionMessage(e.getMessage());
-
-            } else {
-                if (e.getMessage() != null) {
-                    Logger.e(LOG_TAG, e.getMessage());
-                    httpConnection.setHttpConnectionSucceeded(false);
-                    httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
-                    httpConnection.setHttpConnectionMessage(e.getMessage());
-                }
-            }
+            handleFailedConnection(context, url, httpConnection, httpURLConnection, e);
         }
         return httpConnection;
+    }
+
+    private static void handleFailedConnection(Context context, String url, HttpConnection httpConnection,
+                                               HttpURLConnection httpURLConnection, Exception e) {
+        if (httpURLConnection != null) {
+            httpURLConnection.disconnect();
+        }
+
+        if (!NetworkUtil.getInstance().isConnected(context)) {
+            Logger.e(LOG_TAG, "Internet connection error ");
+            httpConnection.setHttpConnectionSucceeded(false);
+            httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);
+            httpConnection.setHttpConnectionMessage(e.getMessage());
+
+        } else if (e.getMessage() != null && e.getMessage().contains
+                (HttpErrorUtil.NonNumericStatusCode.UNABLE_TO_RESOLVE_HOST)) {
+            Logger.e(LOG_TAG, "Connection time out " + url);
+            httpConnection.setHttpConnectionSucceeded(false);
+            httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.UNABLE_TO_RESOLVE_HOST);
+            httpConnection.setHttpConnectionMessage(e.getMessage());
+
+        } else if (e.getMessage() != null && e.getMessage().contains
+                (HttpErrorUtil.NonNumericStatusCode.HTTP_SERVER_TIMEOUT)) {
+            Logger.e(LOG_TAG, "Connection time out " + url);
+            httpConnection.setHttpConnectionSucceeded(false);
+            httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT);
+            httpConnection.setHttpConnectionMessage(e.getMessage());
+
+        } else if (e.getMessage() != null && e.getMessage().contains
+                (HttpErrorUtil.NonNumericStatusCode.HTTP_CONNECTION_REFUSED)) {
+            Logger.e(LOG_TAG, "Connection refused by server " + url);
+            httpConnection.setHttpConnectionSucceeded(false);
+            httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED);
+            httpConnection.setHttpConnectionMessage(e.getMessage());
+
+        } else {
+            if (e.getMessage() != null) {
+                Logger.e(LOG_TAG, e.getMessage());
+                httpConnection.setHttpConnectionSucceeded(false);
+                httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR);
+                httpConnection.setHttpConnectionMessage(e.getMessage());
+            }
+        }
     }
 
     // ===========================================================
