@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         customizeActionBar();
         initDrawer();
         openScreen();
-        Logger.i(LOG_TAG, "abrakadabra");
     }
 
     @Override
