@@ -1,7 +1,5 @@
 package com.sarkisian.template.io.rest.util;
 
-import android.content.Context;
-
 import com.sarkisian.template.io.rest.entity.HttpConnection;
 import com.sarkisian.template.io.rest.entity.HttpResponseHeader;
 import com.sarkisian.template.util.Constant;
@@ -45,7 +43,7 @@ public class HttpResponseUtil {
     // Methods
     // ===========================================================
 
-    public static HttpConnection handleConnection(Context context, HttpConnection httpConnection) {
+    public static HttpConnection handleConnection(HttpConnection httpConnection) {
 
         StringBuilder responseStrBuilder = new StringBuilder();
         HttpURLConnection httpURLConnection = httpConnection.getHttpURLConnection();
@@ -61,10 +59,6 @@ public class HttpResponseUtil {
                 httpResponseMsg = httpURLConnection.getResponseMessage();
                 Logger.i(LOG_TAG, String.valueOf(httpResponseCode) + Constant.Symbol.SPACE + httpResponseMsg);
 
-                 /* 2XX: generally "OK"
-                    3XX: relocation/redirect
-                    4XX: client error
-                    5XX: server error */
                 if (httpResponseCode <= HttpURLConnection.HTTP_BAD_REQUEST) {
                     if (httpResponseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                         httpInputStream = httpURLConnection.getErrorStream();

@@ -2,13 +2,6 @@ package com.sarkisian.template.io.rest.util;
 
 public class HttpErrorUtil {
 
-    /**
-     * 2XX: generally "OK"
-     * 3XX: relocation/redirect
-     * 4XX: client error
-     * 5XX: server error
-     */
-
     public class NonNumericStatusCode {
 
         /**
@@ -215,8 +208,7 @@ public class HttpErrorUtil {
         public static final int HTTP_SERVER_TIMEOUT = 1;
 
         /**
-         * Numeric status code, 2: e.g UnknownHostException:
-         * Any not handled server or connection error
+         * Numeric status code, 2: Any not handled server or connection error
          */
         public static final int HTTP_UNKNOWN_SERVER_ERROR = 2;
 

@@ -78,7 +78,7 @@ public class HttpRequestManager {
                 httpConnection = RestHttpClient.executeDeleteRequest(context, url, bundle);
                 break;
         }
-        httpConnection = HttpResponseUtil.handleConnection(context, httpConnection);
+        httpConnection = HttpResponseUtil.handleConnection(httpConnection);
         return httpConnection;
     }
 

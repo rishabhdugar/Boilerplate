@@ -17,13 +17,13 @@ public class DialogManager {
     // Constants
     // ===========================================================
 
-    private class DialogIdentifier {
-        static final int COMMON_DIALOG = 1;
+    public class DialogIdentifier {
+        public static final int COMMON_DIALOG = 1;
     }
 
-    private class DialogButtonText {
-        static final String OK = "OK";
-        static final String CANCEL = "Cancel";
+    public class DialogButtonText {
+        public static final String OK = "OK";
+        public static final String CANCEL = "Cancel";
     }
 
     // ===========================================================
