@@ -32,7 +32,6 @@ public class TlDataBase {
     public static final String USER_LAST_NAME = "USER_LAST_NAME";
     public static final String USER_EMAIL = "USER_EMAIL";
     public static final String USER_PHONE_NUMBER = "USER_PHONE_NUMBER";
-    public static final String USER_LANGUAGE = "USER_LANGUAGE";
     public static final String USER_AVATAR = "USER_AVATAR";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS " + USER_TABLE
@@ -44,7 +43,6 @@ public class TlDataBase {
             + USER_LAST_NAME + " TEXT, "
             + USER_EMAIL + " TEXT, "
             + USER_PHONE_NUMBER + " TEXT, "
-            + USER_LANGUAGE + " TEXT, "
             + USER_AVATAR + " TEXT"
             + ");";
 
@@ -61,7 +59,6 @@ public class TlDataBase {
                 TlDataBase.USER_LAST_NAME,
                 TlDataBase.USER_EMAIL,
                 TlDataBase.USER_PHONE_NUMBER,
-                TlDataBase.USER_LANGUAGE,
                 TlDataBase.USER_AVATAR
         };
 
