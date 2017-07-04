@@ -112,7 +112,7 @@ public class TlQueryHandler {
     }
 
     public synchronized static void deleteUsers(Context context) {
-        long i = context.getContentResolver().delete(
+        context.getContentResolver().delete(
                 UriBuilder.buildUserUri(),
                 null,
                 null

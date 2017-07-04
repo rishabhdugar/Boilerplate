@@ -69,7 +69,7 @@ public class TlProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
                 return ContentType.ALL_USERS;
