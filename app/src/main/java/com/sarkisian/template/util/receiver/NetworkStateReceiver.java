@@ -52,7 +52,11 @@ public class NetworkStateReceiver extends BroadcastReceiver {
 
         if (activeNetwork != null) {
             BusProvider.getInstance().post(new NetworkEvent(Event.EventType.Network.CONNECTED));
-            unregisterBroadcast(context);
+            // TODO: Implement unregister logic depending on project demands
+            // unregisterBroadcast(context);
+
+        } else {
+            BusProvider.getInstance().post(new NetworkEvent(Event.EventType.Network.DISCONNECTED));
         }
     }
 
@@ -64,12 +68,12 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     // Methods
     // ===========================================================
 
-    public static void registerBroadcast(Context context) {
-        context.registerReceiver(NetworkStateReceiver.getInstance(),
+    public void registerBroadcast(Context context) {
+        context.registerReceiver(sInstance,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
-    public static void unregisterBroadcast(Context context) {
+    public void unregisterBroadcast(Context context) {
         try {
             context.unregisterReceiver(sInstance);
         } catch (IllegalArgumentException e) {

@@ -163,10 +163,13 @@ public class TlIntentService extends IntentService {
 
         // TODO: Implement logout logic depending on project demands
         if (httpConnection.isHttpConnectionSucceeded()) {
-            // Drop user token and other necessary data (e.g. DB tables)
-            Preference.getInstance(this).setUserToken(null);
-            BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
+
         }
+
+        // Drop user token and other necessary data (e.g. DB tables)
+        Preference.getInstance(this).setUserToken(null);
+        BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
+
     }
 
     // ===========================================================
