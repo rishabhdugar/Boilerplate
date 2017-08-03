@@ -3,8 +3,12 @@ package com.sarkisian.template.io.rest;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.sarkisian.template.io.rest.util.HttpResponseUtil;
+import com.sarkisian.template.io.bus.BusProvider;
+import com.sarkisian.template.io.bus.event.ApiEvent;
+import com.sarkisian.template.io.bus.event.Event;
 import com.sarkisian.template.io.rest.entity.HttpConnection;
+import com.sarkisian.template.io.rest.util.HttpErrorUtil;
+import com.sarkisian.template.io.rest.util.HttpResponseUtil;
 
 public class HttpRequestManager {
 
@@ -82,8 +86,57 @@ public class HttpRequestManager {
         return httpConnection;
     }
 
+    public static void handleFailedRequest(String subscriber, HttpConnection httpConnection) {
+
+        switch (httpConnection.getHttpConnectionCode()) {
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK:
+            case HttpErrorUtil.NumericStatusCode.UNABLE_TO_RESOLVE_HOST:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.NO_NETWORK,
+                        subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.SERVER_TIMEOUT,
+                        subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNKNOWN,
+                        subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.CONNECTION_REFUSED,
+                        subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_UNAUTHORIZED:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNAUTHORIZED,
+                        subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_BAD_REQUEST:
+                BusProvider.getInstance().post(new ApiEvent<>(httpConnection.getHttpResponseBody().toString(),
+                        Event.EventType.Api.Error.BAD_REQUEST, subscriber));
+                break;
+
+            case HttpErrorUtil.NumericStatusCode.HTTP_NOT_FOUND:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.PAGE_NOT_FOUND,
+                        subscriber));
+                break;
+
+            default:
+                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNKNOWN,
+                        subscriber));
+                break;
+        }
+    }
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
+
+
 
 }

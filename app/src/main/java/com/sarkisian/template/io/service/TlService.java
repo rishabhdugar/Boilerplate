@@ -14,7 +14,6 @@ import com.sarkisian.template.io.bus.event.Event;
 import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.RestHttpClient;
 import com.sarkisian.template.io.rest.entity.HttpConnection;
-import com.sarkisian.template.io.rest.util.HttpErrorUtil;
 import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
@@ -192,7 +191,7 @@ public class TlService extends Service {
         } else {
             Logger.e(LOG_TAG, httpConnection.getHttpConnectionMessage()
                     + Constant.Symbol.SPACE + httpConnection.getHttpConnectionCode());
-            handleFailedConnection(subscriber, httpConnection);
+            HttpRequestManager.handleFailedRequest(subscriber, httpConnection);
         }
     }
 
@@ -219,49 +218,4 @@ public class TlService extends Service {
     // ===========================================================
     // Util
     // ===========================================================
-
-    private void handleFailedConnection(String subscriber, HttpConnection httpConnection) {
-        switch (httpConnection.getHttpConnectionCode()) {
-            case HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK:
-            case HttpErrorUtil.NumericStatusCode.UNABLE_TO_RESOLVE_HOST:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.NO_NETWORK,
-                        subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_SERVER_TIMEOUT:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.SERVER_TIMEOUT,
-                        subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_UNKNOWN_SERVER_ERROR:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNKNOWN,
-                        subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_CONNECTION_REFUSED:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.CONNECTION_REFUSED,
-                        subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_UNAUTHORIZED:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNAUTHORIZED,
-                        subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_BAD_REQUEST:
-                BusProvider.getInstance().post(new ApiEvent<>(httpConnection.getHttpResponseBody().toString(),
-                        Event.EventType.Api.Error.BAD_REQUEST, subscriber));
-                break;
-
-            case HttpErrorUtil.NumericStatusCode.HTTP_NOT_FOUND:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.PAGE_NOT_FOUND,
-                        subscriber));
-                break;
-
-            default:
-                BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.Error.UNKNOWN,
-                        subscriber));
-                break;
-        }
-    }
 }
