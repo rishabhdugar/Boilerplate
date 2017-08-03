@@ -16,7 +16,7 @@ public abstract class Event {
 
         public static class Api {
 
-            public class Error {
+            public static class Error {
                 public static final int UNKNOWN = 100;
                 public static final int NO_NETWORK = 101;
                 public static final int PAGE_NOT_FOUND = 102;

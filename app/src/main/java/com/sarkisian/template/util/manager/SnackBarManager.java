@@ -9,7 +9,7 @@ public class SnackBarManager {
 
     private static final String LOG_TAG = SnackBarManager.class.getSimpleName();
 
-    public class Duration {
+    public static class Duration {
         public static final int TOO_SHORT = 2000;
         public static final int SHORT = 3000;
         public static final int LONG = 4000;
@@ -65,8 +65,8 @@ public class SnackBarManager {
         }
     }
 
-    public static void showWithAction(Context context, View view, String msg, int length, String actionMsg,
-                                      View.OnClickListener onClickListener) {
+    public static void showWithAction(Context context, View view, String msg, int length,
+                                      String actionMsg, View.OnClickListener onClickListener) {
         try {
             if (context != null) {
                 if (view != null) {

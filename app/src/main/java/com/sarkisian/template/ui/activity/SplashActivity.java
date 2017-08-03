@@ -34,11 +34,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // if user isn't authorized then suggest him to authorize
         if (Preference.getInstance(this).getUserToken() == null) {
             Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
             finish();
+
         } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

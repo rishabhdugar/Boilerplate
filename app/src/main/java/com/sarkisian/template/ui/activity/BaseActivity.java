@@ -59,6 +59,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     // Methods
     // ===========================================================
 
+    protected abstract int getLayoutResource();
+
     private void findViews() {
         mToolbar = (Toolbar) findViewById(R.id.tb);
         if (mToolbar != null) {
@@ -67,17 +69,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected abstract int getLayoutResource();
-
-    protected Toolbar getToolBar() {
+    public Toolbar getToolBar() {
         return mToolbar;
     }
 
-    protected void hideActionBar() {
+    public void hideActionBar() {
         getSupportActionBar().hide();
     }
 
-    protected void showActionBar() {
+    public void showActionBar() {
         getSupportActionBar().show();
     }
 
@@ -90,15 +90,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         mTvSubToolbarTitle.setText(subtitle);
     }
 
-    protected void hideActionBarTitle() {
+    public void hideActionBarTitle() {
         mTvSubToolbarTitle.setVisibility(View.GONE);
     }
 
-    protected void hideActionBarSubTitle() {
+    public void hideActionBarSubTitle() {
         mTvToolbarTitle.setVisibility(View.GONE);
     }
 
-    protected void showActionBarTitle() {
+    public void showActionBarTitle() {
         mTvToolbarTitle.setVisibility(View.VISIBLE);
     }
 

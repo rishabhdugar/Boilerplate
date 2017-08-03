@@ -5,8 +5,8 @@ import com.sarkisian.template.BuildConfig;
 
 public class APIUtil {
 
-    private static final String HOST_PRODUCTION = "http://your_domain.com";
-    private static final String HOST_STAGING = "http://your_domain.com";
+    private static final String HOST_PRODUCTION = "http://your_domain.prod.com";
+    private static final String HOST_STAGING = "http://your_domain.stag.com";
 
     public static final String LOGIN = "/api/auth/login/";
     public static final String LOGOUT = "/api/auth/logout/";

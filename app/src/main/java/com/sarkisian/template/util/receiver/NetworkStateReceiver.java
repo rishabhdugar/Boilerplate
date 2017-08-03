@@ -24,7 +24,6 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     // ===========================================================
 
     private static NetworkStateReceiver sInstance;
-    private static boolean isRegistered;
 
     // ===========================================================
     // Constructors
@@ -66,17 +65,13 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     // ===========================================================
 
     public static void registerBroadcast(Context context) {
-        isRegistered = true;
         context.registerReceiver(NetworkStateReceiver.getInstance(),
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     public static void unregisterBroadcast(Context context) {
         try {
-            if (isRegistered) {
-                context.unregisterReceiver(sInstance);
-                isRegistered = false;
-            }
+            context.unregisterReceiver(sInstance);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

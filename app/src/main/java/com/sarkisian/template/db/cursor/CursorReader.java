@@ -54,6 +54,7 @@ public class CursorReader {
         if (cursor != null) {
             cursor.close();
         }
+
         return user;
     }
 
@@ -70,6 +71,7 @@ public class CursorReader {
         if (cursor != null) {
             cursor.close();
         }
+
         return userArrayList;
     }
 
@@ -87,6 +89,7 @@ public class CursorReader {
         user.setEmail(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_EMAIL)));
         user.setPhoneNumber(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_PHONE_NUMBER)));
         user.setAvatar(cursor.getString(cursor.getColumnIndex(TlDataBase.USER_AVATAR)));
+
         return user;
     }
 

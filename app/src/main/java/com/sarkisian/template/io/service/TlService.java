@@ -119,7 +119,7 @@ public class TlService extends Service {
     // Inner classes
     // ===========================================================
 
-    class RunnableTask implements Runnable {
+    private class RunnableTask implements Runnable {
 
         int startId;
         Intent intent;
@@ -165,15 +165,15 @@ public class TlService extends Service {
                 postEntity
         );
 
-        /* For your project (with working API) move this code
-           in isHttpConnectionSucceeded block */
+        /* For project with working API move below code
+           into isHttpConnectionSucceeded block */
 
         // Save token in prefs
         Preference.getInstance(this).setUserToken("RET45456TY6756HF56456yuty567HH");
 
         // Save user in DB (in template we create fake user, in your project
         // get server user after login, or implement it how you need)
-        TlQueryHandler.addUser(this, new User(145, "David Berligon", "david.berligon@db.com"));
+        TlQueryHandler.addUser(this, new User(145, "David Berligen", "david.berligen@db.com"));
 
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGIN_COMPLETED, subscriber));
 
@@ -206,17 +206,11 @@ public class TlService extends Service {
                 null
         );
 
-        /* Technically there is no sense to inform user that something went wrong by logout,
-           when user click logout he must logout no matter which response is received from server,
-           it is our problem, so we do not wait for response */
-
-        // Drop user token and other necessary data (e.g. DB tables )
-        // depending on your implementation
-        Preference.getInstance(this).setUserToken(null);
-        BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
-
+        // TODO: Implement logout logic depending on project demands
         if (httpConnection.isHttpConnectionSucceeded()) {
-            Logger.i(LOG_TAG, "Logged out on server");
+            // Drop user token and other necessary data (e.g. DB tables)
+            Preference.getInstance(this).setUserToken(null);
+            BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
         }
     }
 

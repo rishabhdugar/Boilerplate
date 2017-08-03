@@ -26,18 +26,20 @@ public class TlProvider extends ContentProvider {
 
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID;
 
-    public class Path {
+    static class Path {
         static final String USER_LOCATION = TlDataBase.USER_TABLE;
     }
 
-    private class Code {
+    private static class Code {
         private static final int ALL_USERS = 1;
         private static final int SINGLE_USER = 2;
     }
 
     private static class ContentType {
+
         private static final String ALL_USERS = "vnd.android.cursor.dir/vnd."
                 + AUTHORITY + "." + Path.USER_LOCATION;
+
         private static final String SINGLE_USER = "vnd.android.cursor.item/vnd."
                 + AUTHORITY + "." + Path.USER_LOCATION;
     }
@@ -90,6 +92,11 @@ public class TlProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
             case Code.SINGLE_USER:
+                id = db.insertWithOnConflict(TlDataBase.USER_TABLE, null, values,
+                        SQLiteDatabase.CONFLICT_REPLACE);
+                contentUri = ContentUris.withAppendedId(UriBuilder.buildUserUri(), id);
+                break;
+
             case Code.ALL_USERS:
                 id = db.insertWithOnConflict(TlDataBase.USER_TABLE, null, values,
                         SQLiteDatabase.CONFLICT_REPLACE);
@@ -99,6 +106,7 @@ public class TlProvider extends ContentProvider {
             default:
                 throw new UnsupportedUriException(uri.toString());
         }
+
         return contentUri;
     }
 
@@ -176,10 +184,8 @@ public class TlProvider extends ContentProvider {
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
         uriMatcher.addURI(AUTHORITY, Path.USER_LOCATION, Code.ALL_USERS);
         uriMatcher.addURI(AUTHORITY, Path.USER_LOCATION + "/#", Code.SINGLE_USER);
-
         return uriMatcher;
     }
 

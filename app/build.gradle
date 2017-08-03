@@ -11,26 +11,27 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-            /*def Properties keyProps = new Properties()
+            /* Retrieve credentials from local.properties to sign builds */
+
+            /* def Properties keyProps = new Properties()
             keyProps.load(new FileInputStream(file('../local.properties')))
             storeFile file(keyProps["release.store.path"])
             keyAlias keyProps["release.key.alias"]
             storePassword keyProps["release.store.password"]
-            keyPassword keyProps["release.key.password"]*/
+            keyPassword keyProps["release.key.password"] */
         }
 
         debug {
-            /*def Properties keyProps = new Properties()
+            /* def Properties keyProps = new Properties()
             keyProps.load(new FileInputStream(file('../local.properties')))
             storeFile file(keyProps["debug.store.path"])
             keyAlias keyProps["debug.key.alias"]
             storePassword keyProps["debug.store.password"]
-            keyPassword keyProps["debug.key.password"]*/
+            keyPassword keyProps["debug.key.password"] */
         }
     }
 
@@ -53,8 +54,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     debugCompile 'com.amitshekhar.android:debug-db:0.2.0'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'

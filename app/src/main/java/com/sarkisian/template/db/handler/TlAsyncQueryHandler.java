@@ -1,7 +1,7 @@
 package com.sarkisian.template.db.handler;
 
 import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -52,9 +52,9 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
     // Constructors
     // ===========================================================
 
-    public TlAsyncQueryHandler(ContentResolver contentResolver,
+    public TlAsyncQueryHandler(Context context,
                                AsyncQueryListener queryListenerReference) {
-        super(contentResolver);
+        super(context.getContentResolver());
         mQueryListenerReference = new WeakReference<>(queryListenerReference);
     }
 
@@ -120,10 +120,10 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startQuery(
                 QueryToken.GET_USER,
                 null,
-                UriBuilder.buildUserUri(),
+                UriBuilder.buildUserUri(userId),
                 TlDataBase.Projection.USER,
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(userId)},
+                null,
+                null,
                 null
         );
     }
@@ -153,10 +153,10 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startUpdate(
                 QueryToken.UPDATE_USER,
                 null,
-                UriBuilder.buildUserUri(),
+                UriBuilder.buildUserUri(user.getId()),
                 TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(user.getId())}
+                null,
+                null
         );
     }
 
@@ -164,9 +164,9 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startDelete(
                 QueryToken.DELETE_USER,
                 null,
-                UriBuilder.buildUserUri(),
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(user.getId())}
+                UriBuilder.buildUserUri(user.getId()),
+                null,
+                null
         );
     }
 

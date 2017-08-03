@@ -24,14 +24,14 @@ public class RestHttpClient {
     private static final String UTF_8 = "UTF-8";
     private static final String TOKEN_VALUE = "Token ";
 
-    private class Header {
+    private static class Header {
         private static final String AUTHORIZATION = "Authorization";
         private static final String CONTENT_TYPE = "Content-Type";
         private static final String ACCEPT_ENCODING = "Accept-Encoding";
         private static final String X_HTTP_METHOD_OVERRIDE = "X-HTTP-Method-Override";
     }
 
-    private class PayloadType {
+    private static class PayloadType {
         private static final String APPLICATION_JSON = "application/json";
     }
 
@@ -45,7 +45,7 @@ public class RestHttpClient {
     }
 
     /* All extra data - headers, tokens, json post values will be put to bundle */
-    public class BundleData {
+    public static class BundleData {
         public static final String TOKEN = "token";
         public static final String JSON_ENTITY = "entity";
     }
@@ -69,7 +69,7 @@ public class RestHttpClient {
     /**
      * HEAD Request
      */
-    public static HttpConnection executeHeadRequest(Context context, String url, Bundle bundle) {
+    static HttpConnection executeHeadRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
@@ -111,7 +111,7 @@ public class RestHttpClient {
     /**
      * POST Request
      */
-    public static HttpConnection executePostRequest(Context context, String url, Bundle bundle) {
+    static HttpConnection executePostRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         String postEntity = null;
         if (bundle != null) {
@@ -162,7 +162,7 @@ public class RestHttpClient {
     /**
      * PATCH Request
      */
-    public static HttpConnection executePatchRequest(Context context, String url, Bundle bundle) {
+    static HttpConnection executePatchRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         String postEntity = null;
         if (bundle != null) {
@@ -214,7 +214,7 @@ public class RestHttpClient {
     /**
      * PUT Request
      */
-    public static HttpConnection executePutRequest(Context context, String url, Bundle bundle) {
+    static HttpConnection executePutRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         String postEntity = null;
         if (bundle != null) {
@@ -265,7 +265,7 @@ public class RestHttpClient {
     /**
      * GET Request
      */
-    public static HttpConnection executeGetRequest(final Context context, String url, Bundle bundle) {
+    static HttpConnection executeGetRequest(final Context context, String url, Bundle bundle) {
         Object token = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
@@ -309,7 +309,7 @@ public class RestHttpClient {
     /**
      * DELETE Request
      */
-    public static HttpConnection executeDeleteRequest(final Context context, String url, Bundle bundle) {
+    static HttpConnection executeDeleteRequest(final Context context, String url, Bundle bundle) {
         Object token = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
@@ -355,7 +355,7 @@ public class RestHttpClient {
             httpURLConnection.disconnect();
         }
 
-        if (!NetworkUtil.getInstance().isConnected(context)) {
+        if (!NetworkUtil.isConnected(context)) {
             Logger.e(LOG_TAG, "Internet connection error ");
             httpConnection.setHttpConnectionSucceeded(false);
             httpConnection.setHttpConnectionCode(HttpErrorUtil.NumericStatusCode.HTTP_NO_NETWORK);

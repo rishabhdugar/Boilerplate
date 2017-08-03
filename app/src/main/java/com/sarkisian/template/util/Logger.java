@@ -2,7 +2,7 @@ package com.sarkisian.template.util;
 
 import android.util.Log;
 
-import com.amitshekhar.BuildConfig;
+import com.sarkisian.template.BuildConfig;
 
 public class Logger {
 

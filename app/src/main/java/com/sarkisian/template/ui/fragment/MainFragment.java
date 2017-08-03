@@ -1,28 +1,41 @@
 package com.sarkisian.template.ui.fragment;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sarkisian.template.ui.activity.BaseActivity;
+import com.sarkisian.template.R;
+import com.sarkisian.template.util.Constant;
 
-public abstract class BaseFragment extends Fragment {
+public class MainFragment extends BaseFragment implements View.OnClickListener {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
+    private static final String LOG_TAG = MainFragment.class.getSimpleName();
+
     // ===========================================================
     // Fields
     // ===========================================================
 
+    private Bundle mArgumentData;
+
     // ===========================================================
     // Constructors
     // ===========================================================
+
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
+    public static MainFragment newInstance(Bundle args) {
+        MainFragment fragment = new MainFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     // ===========================================================
     // Getter & Setter
@@ -42,35 +55,51 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        findViews(view);
+        setListeners();
+        getData();
+        customizeActionBar();
+        return view;
     }
 
     // ===========================================================
-    // Listeners, methods for/from Interfaces
+    // Click Listeners
+    // ===========================================================
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        }
+    }
+
+    // ===========================================================
+    // Other Listeners, methods for/from Interfaces
     // ===========================================================
 
     // ===========================================================
     // Methods
     // ===========================================================
 
-    protected void hideActionBarIcon() {
-        ((BaseActivity) getActivity()).hideActionBarIcon();
+    private void setListeners() {
+
     }
 
-    protected void showActionBarIcon() {
-        ((BaseActivity) getActivity()).showActionBarIcon();
+    private void findViews(View view) {
+
     }
 
-    protected void setActionBarIcon() {
-        ((BaseActivity) getActivity()).hideActionBarIcon();
+    public void getData() {
+        if (getArguments() != null) {
+            mArgumentData = getArguments().getBundle(Constant.Argument.ARGUMENT_DATA);
+        }
     }
 
-    protected void setActionBarTitle(String actionBarTitle) {
-        ((BaseActivity) getActivity()).setActionBarTitle(actionBarTitle);
+    private void customizeActionBar() {
+
     }
 
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
-
 }

@@ -12,8 +12,6 @@ import com.sarkisian.template.ui.activity.AuthActivity;
 
 public class AppUtil {
 
-    private static final String LOG_TAG = AppUtil.class.getSimpleName();
-
     public static int getToolbarHeight(Context context) {
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
                 new int[]{R.attr.actionBarSize});
@@ -40,11 +38,11 @@ public class AppUtil {
         return b == 1;
     }
 
-    public static void logOutFromApp(Activity activity) {
-        Intent intent = new Intent(activity, AuthActivity.class);
+    public static void logOutFromApp(Context context) {
+        Intent intent = new Intent(context, AuthActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-        activity.finish();
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
 
     public static boolean isServiceRunning(Context context, Class<?> serviceClass) {

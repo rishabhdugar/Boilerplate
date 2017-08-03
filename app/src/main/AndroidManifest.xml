@@ -13,6 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <service
+            android:name=".io.service.TlIntentService"
+            android:exported="false"/>
+
+        <service
+            android:name=".io.service.TlService"
+            android:exported="false"/>
+
         <provider
             android:name=".db.provider.TlProvider"
             android:authorities="${applicationId}"
@@ -36,14 +44,6 @@
         <activity
             android:name=".ui.activity.AuthActivity"
             android:screenOrientation="portrait"/>
-
-        <service
-            android:name=".io.service.TlIntentService"
-            android:exported="false"/>
-
-        <service
-            android:name=".io.service.TlService"
-            android:exported="false"/>
 
     </application>
 

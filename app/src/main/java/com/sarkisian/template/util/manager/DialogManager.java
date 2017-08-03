@@ -17,11 +17,11 @@ public class DialogManager {
     // Constants
     // ===========================================================
 
-    public class DialogIdentifier {
+    public static class DialogIdentifier {
         public static final int COMMON_DIALOG = 1;
     }
 
-    public class DialogButtonText {
+    public static class DialogButtonText {
         public static final String OK = "OK";
         public static final String CANCEL = "Cancel";
     }
@@ -44,16 +44,16 @@ public class DialogManager {
     private DialogManager() {
     }
 
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
     public static DialogManager getInstance() {
         if (sInstance == null) {
             sInstance = new DialogManager();
         }
         return sInstance;
     }
+
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
     public int getIdentifier() {
         return mIdentifier;

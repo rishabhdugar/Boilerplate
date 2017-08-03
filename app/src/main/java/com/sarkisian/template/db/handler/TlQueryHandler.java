@@ -63,30 +63,30 @@ public class TlQueryHandler {
 
     public synchronized static void updateUser(Context context, User user) {
         context.getContentResolver().update(
-                UriBuilder.buildUserUri(),
+                UriBuilder.buildUserUri(user.getId()),
                 TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(user.getId())}
+                null,
+                null
         );
     }
 
     public synchronized static void updateUsers(Context context, ArrayList<User> users) {
         for (User user : users) {
             context.getContentResolver().update(
-                    UriBuilder.buildUserUri(),
+                    UriBuilder.buildUserUri(user.getId()),
                     TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                    TlDataBase.USER_ID + "=?",
-                    new String[]{String.valueOf(user.getId())}
+                    null,
+                    null
             );
         }
     }
 
     public synchronized static User getUser(Context context, long id) {
         Cursor cursor = context.getContentResolver().query(
-                UriBuilder.buildUserUri(),
+                UriBuilder.buildUserUri(id),
                 TlDataBase.Projection.USER,
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(id)},
+                null,
+                null,
                 null
         );
         return CursorReader.parseUser(cursor);
@@ -105,9 +105,9 @@ public class TlQueryHandler {
 
     public synchronized static void deleteUser(Context context, User user) {
         context.getContentResolver().delete(
-                UriBuilder.buildUserUri(),
-                TlDataBase.USER_ID + "=?",
-                new String[]{String.valueOf(user.getId())}
+                UriBuilder.buildUserUri(user.getId()),
+                null,
+                null
         );
     }
 
@@ -138,6 +138,7 @@ public class TlQueryHandler {
             exist = cursor.getInt(0) > 0;
             cursor.close();
         }
+
         return exist;
     }
 

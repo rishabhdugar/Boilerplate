@@ -2,7 +2,7 @@ package com.sarkisian.template.io.bus.event;
 
 public class NetworkEvent extends Event {
 
-    int eventType;
+    private int eventType;
 
     public NetworkEvent() {
     }

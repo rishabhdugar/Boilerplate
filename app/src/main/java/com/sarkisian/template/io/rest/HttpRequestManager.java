@@ -14,7 +14,7 @@ public class HttpRequestManager {
 
     private static final String LOG_TAG = HttpRequestManager.class.getSimpleName();
 
-    public class RequestType {
+    public static class RequestType {
         public static final int LOG_IN = 1;
         public static final int LOG_OUT = 2;
     }
@@ -44,7 +44,7 @@ public class HttpRequestManager {
     // ===========================================================
 
     /**
-     * @param url           - api url
+     * @param url           - API url
      * @param token         - pass authorization token if required, otherwise pass null
      * @param postEntity    - post request json entity) if required, otherwise pass null
      * @param requestMethod - post, put, delete, get or other

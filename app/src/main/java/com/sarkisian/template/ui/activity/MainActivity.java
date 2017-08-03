@@ -1,9 +1,11 @@
 package com.sarkisian.template.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,8 +21,10 @@ import com.sarkisian.template.io.bus.event.NetworkEvent;
 import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.util.APIUtil;
 import com.sarkisian.template.io.service.TlIntentService;
+import com.sarkisian.template.ui.fragment.MainFragment;
 import com.sarkisian.template.util.AppUtil;
 import com.sarkisian.template.util.Logger;
+import com.sarkisian.template.util.manager.FragmentTransactionManager;
 import com.sarkisian.template.util.manager.SnackBarManager;
 
 import static com.sarkisian.template.io.rest.util.APIUtil.LOGOUT;
@@ -67,7 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         setListeners();
         customizeActionBar();
         initDrawer();
-        openScreen();
+        openScreen(MainFragment.newInstance(), false, R.id.nav_one);
     }
 
     @Override
@@ -155,6 +159,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_one:
+                openScreen(MainFragment.newInstance(), false, R.id.nav_one);
                 break;
 
             case R.id.nav_two:
@@ -219,8 +224,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         actionBarDrawerToggle.syncState();
     }
 
-    private void openScreen() {
-        mNavigationView.getMenu().findItem(R.id.nav_one).setChecked(true);
+    private void openScreen(Fragment fragment, boolean addToBackStack, @IdRes int menuItem) {
+
+        mNavigationView.getMenu().findItem(menuItem).setChecked(true);
+
+        FragmentTransactionManager.displayFragment(
+                getSupportFragmentManager(),
+                fragment,
+                R.id.fl_main_container,
+                addToBackStack
+        );
     }
 
     // ===========================================================

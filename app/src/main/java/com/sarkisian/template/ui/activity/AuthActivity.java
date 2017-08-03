@@ -178,19 +178,19 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
     private void grabDataAndSingIn(String mail, String pass) {
         boolean isValidationSucceeded = true;
 
-        // validate password (empty or not)
-        if (pass.trim().length() == 0) {
-            isValidationSucceeded = false;
-            mTilPass.setError(getString(R.string.msg_edt_error_mail));
-        }
-
         // validate email (empty or not)
-        if (mail.trim().length() == 0) {
+        if (pass.trim().length() == 0) {
             isValidationSucceeded = false;
             mTilEmail.setError(getString(R.string.msg_edt_pass_error));
         }
 
-        // if required fields are filled up then proceed with login
+        // validate password (empty or not)
+        if (mail.trim().length() == 0) {
+            isValidationSucceeded = false;
+            mTilPass.setError(getString(R.string.msg_edt_error_mail));
+        }
+
+        // if required fields are filled up - proceed with login
         if (isValidationSucceeded) {
             DialogManager.getInstance().showPreloader(this);
 
