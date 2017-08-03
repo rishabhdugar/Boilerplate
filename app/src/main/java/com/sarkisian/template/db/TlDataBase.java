@@ -96,6 +96,7 @@ public class TlDataBase {
     }
 
     static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // TODO: implement update according to the project requirements
         Logger.i(LOG_TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion);
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);

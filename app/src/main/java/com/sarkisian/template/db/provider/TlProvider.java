@@ -67,7 +67,7 @@ public class TlProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         mDataBaseHelper = new TlDataBaseHelper(getContext());
-        return false;
+        return true;
     }
 
     @Override
@@ -91,16 +91,22 @@ public class TlProvider extends ContentProvider {
         long id;
 
         switch (sUriMatcher.match(uri)) {
+
+            // At this project cases are similar but in real project each case can
+            // have it's oven implementation depending on required logic
+
             case Code.SINGLE_USER:
                 id = db.insertWithOnConflict(TlDataBase.USER_TABLE, null, values,
                         SQLiteDatabase.CONFLICT_REPLACE);
                 contentUri = ContentUris.withAppendedId(UriBuilder.buildUserUri(), id);
+                // getContext().getContentResolver().notifyChange(contentUri, null);
                 break;
 
             case Code.ALL_USERS:
                 id = db.insertWithOnConflict(TlDataBase.USER_TABLE, null, values,
                         SQLiteDatabase.CONFLICT_REPLACE);
                 contentUri = ContentUris.withAppendedId(UriBuilder.buildUserUri(), id);
+                // getContext().getContentResolver().notifyChange(contentUri, null);
                 break;
 
             default:
