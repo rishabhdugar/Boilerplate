@@ -265,7 +265,7 @@ public class RestHttpClient {
     /**
      * GET Request
      */
-    static HttpConnection executeGetRequest(final Context context, String url, Bundle bundle) {
+    static HttpConnection executeGetRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);
@@ -309,7 +309,7 @@ public class RestHttpClient {
     /**
      * DELETE Request
      */
-    static HttpConnection executeDeleteRequest(final Context context, String url, Bundle bundle) {
+    static HttpConnection executeDeleteRequest(Context context, String url, Bundle bundle) {
         Object token = null;
         if (bundle != null) {
             token = bundle.get(BundleData.TOKEN);

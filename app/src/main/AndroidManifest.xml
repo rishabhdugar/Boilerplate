@@ -14,17 +14,14 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".io.service.TlIntentService"
-            android:exported="false"/>
+            android:name=".io.service.TlIntentService"/>
 
         <service
-            android:name=".io.service.TlService"
-            android:exported="false"/>
+            android:name=".io.service.TlService"/>
 
         <provider
             android:name=".db.provider.TlProvider"
-            android:authorities="${applicationId}"
-            android:exported="false"/>
+            android:authorities="${applicationId}"/>
 
         <activity
             android:name=".ui.activity.SplashActivity"
