@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sarkisian.template.R;
+import com.sarkisian.template.db.handler.TlQueryHandler;
 import com.sarkisian.template.util.Constant;
 
 public class MainFragment extends BaseFragment implements View.OnClickListener {
@@ -70,6 +71,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_add_user:
+                TlQueryHandler.getUser(getActivity(), 145);
+                break;
         }
     }
 

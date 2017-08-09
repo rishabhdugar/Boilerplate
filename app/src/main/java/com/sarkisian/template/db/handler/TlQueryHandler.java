@@ -63,30 +63,30 @@ public class TlQueryHandler {
 
     public synchronized static void updateUser(Context context, User user) {
         context.getContentResolver().update(
-                UriBuilder.buildUserUri(user.getId()),
+                UriBuilder.buildUserUri(),
                 TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                null,
-                null
+                TlDataBase.USER_ID + "=?",
+                new String[]{String.valueOf(user.getId())}
         );
     }
 
     public synchronized static void updateUsers(Context context, ArrayList<User> users) {
         for (User user : users) {
             context.getContentResolver().update(
-                    UriBuilder.buildUserUri(user.getId()),
+                    UriBuilder.buildUserUri(),
                     TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                    null,
-                    null
+                    TlDataBase.USER_ID + "=?",
+                    new String[]{String.valueOf(user.getId())}
             );
         }
     }
 
-    public synchronized static User getUser(Context context, long id) {
+    public synchronized static User getUser(Context context, long userId) {
         Cursor cursor = context.getContentResolver().query(
-                UriBuilder.buildUserUri(id),
+                UriBuilder.buildUserUri(),
                 TlDataBase.Projection.USER,
-                null,
-                null,
+                TlDataBase.USER_ID + "=?",
+                new String[]{String.valueOf(userId)},
                 null
         );
         return CursorReader.parseUser(cursor);
@@ -105,9 +105,9 @@ public class TlQueryHandler {
 
     public synchronized static void deleteUser(Context context, User user) {
         context.getContentResolver().delete(
-                UriBuilder.buildUserUri(user.getId()),
-                null,
-                null
+                UriBuilder.buildUserUri(),
+                TlDataBase.USER_ID + "=?",
+                new String[]{String.valueOf(user.getId())}
         );
     }
 

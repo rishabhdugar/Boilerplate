@@ -52,8 +52,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
     // Constructors
     // ===========================================================
 
-    public TlAsyncQueryHandler(Context context,
-                               AsyncQueryListener queryListenerReference) {
+    public TlAsyncQueryHandler(Context context, AsyncQueryListener queryListenerReference) {
         super(context.getContentResolver());
         mQueryListenerReference = new WeakReference<>(queryListenerReference);
     }
@@ -120,10 +119,10 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startQuery(
                 QueryToken.GET_USER,
                 null,
-                UriBuilder.buildUserUri(userId),
+                UriBuilder.buildUserUri(),
                 TlDataBase.Projection.USER,
-                null,
-                null,
+                TlDataBase.USER_PK + "=?",
+                new String[]{String.valueOf(userId)},
                 null
         );
     }
@@ -153,10 +152,10 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startUpdate(
                 QueryToken.UPDATE_USER,
                 null,
-                UriBuilder.buildUserUri(user.getId()),
+                UriBuilder.buildUserUri(),
                 TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                null,
-                null
+                TlDataBase.USER_ID + "=?",
+                new String[]{String.valueOf(user.getId())}
         );
     }
 
@@ -164,9 +163,9 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         startDelete(
                 QueryToken.DELETE_USER,
                 null,
-                UriBuilder.buildUserUri(user.getId()),
-                null,
-                null
+                UriBuilder.buildUserUri(),
+                TlDataBase.USER_ID + "=?",
+                new String[]{String.valueOf(user.getId())}
         );
     }
 
