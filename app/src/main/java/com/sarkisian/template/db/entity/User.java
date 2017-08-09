@@ -10,7 +10,7 @@ public class User implements Parcelable {
     private long pk;
 
     @SerializedName("id")
-    private long id;
+    private long id; // server id
 
     @SerializedName("username")
     private String name;
