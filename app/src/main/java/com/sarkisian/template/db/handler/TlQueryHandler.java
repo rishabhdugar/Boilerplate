@@ -70,6 +70,15 @@ public class TlQueryHandler {
         );
     }
 
+    public synchronized static void updateUserByPk(Context context, User user) {
+        context.getContentResolver().update(
+                UriBuilder.buildUserUri(user.getPk()),
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                null,
+                null
+        );
+    }
+
     public synchronized static void updateUsers(Context context, ArrayList<User> users) {
         for (User user : users) {
             context.getContentResolver().update(
@@ -92,6 +101,17 @@ public class TlQueryHandler {
         return CursorReader.parseUser(cursor);
     }
 
+    public synchronized static User getUserByPk(Context context, long userPk) {
+        Cursor cursor = context.getContentResolver().query(
+                UriBuilder.buildUserUri(userPk),
+                TlDataBase.Projection.USER,
+                null,
+                null,
+                null
+        );
+        return CursorReader.parseUser(cursor);
+    }
+
     public synchronized static ArrayList<User> getUsers(Context context) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(),
@@ -108,6 +128,14 @@ public class TlQueryHandler {
                 UriBuilder.buildUserUri(),
                 TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
+        );
+    }
+
+    public synchronized static void deleteUserByPk(Context context, long userPk) {
+        context.getContentResolver().delete(
+                UriBuilder.buildUserUri(userPk),
+                null,
+                null
         );
     }
 

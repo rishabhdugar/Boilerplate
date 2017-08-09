@@ -127,6 +127,18 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         );
     }
 
+    public synchronized void getUserByPk(long pk) {
+        startQuery(
+                QueryToken.GET_USER,
+                null,
+                UriBuilder.buildUserUri(pk),
+                TlDataBase.Projection.USER,
+                null,
+                null,
+                null
+        );
+    }
+
     public synchronized void getUsers() {
         startQuery(
                 QueryToken.GET_USERS,
@@ -159,6 +171,17 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         );
     }
 
+    public synchronized void updateUserByPk(User user) {
+        startUpdate(
+                QueryToken.UPDATE_USER,
+                null,
+                UriBuilder.buildUserUri(user.getPk()),
+                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                null,
+                null
+        );
+    }
+
     public synchronized void deleteUser(User user) {
         startDelete(
                 QueryToken.DELETE_USER,
@@ -166,6 +189,16 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 UriBuilder.buildUserUri(),
                 TlDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
+        );
+    }
+
+    public synchronized void deleteUserByPk(User user) {
+        startDelete(
+                QueryToken.DELETE_USER,
+                null,
+                UriBuilder.buildUserUri(user.getPk()),
+                null,
+                null
         );
     }
 
