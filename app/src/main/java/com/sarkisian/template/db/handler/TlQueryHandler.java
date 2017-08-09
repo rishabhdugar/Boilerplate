@@ -20,32 +20,8 @@ public class TlQueryHandler {
     private final static String LOG_TAG = TlQueryHandler.class.getSimpleName();
 
     // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
     // Methods
     // ===========================================================
-
-    /**
-     * USER METHODS
-     *************************************************************/
 
     public synchronized static void addUser(Context context, User user) {
         context.getContentResolver().insert(
@@ -147,10 +123,6 @@ public class TlQueryHandler {
         );
     }
 
-    /**
-     * UTIL METHODS
-     *************************************************************/
-
     public synchronized static boolean isTableEmpty(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(
                 uri,
@@ -169,9 +141,5 @@ public class TlQueryHandler {
 
         return exist;
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 
 }

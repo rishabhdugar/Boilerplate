@@ -19,10 +19,6 @@ public class TlDataBase {
     // Fields
     // ===========================================================
 
-    /**
-     * TABLES
-     ***************************************************************/
-
     public static final String USER_TABLE = "USER_TABLE";
 
     public static final String USER_PK = "_id";
@@ -46,10 +42,6 @@ public class TlDataBase {
             + USER_AVATAR + " TEXT"
             + ");";
 
-    /**
-     * PROJECTIONS
-     ***************************************************************/
-
     public static class Projection {
         public static String[] USER = {
                 TlDataBase.USER_PK,
@@ -68,44 +60,22 @@ public class TlDataBase {
     }
 
     // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
     // Methods
     // ===========================================================
-
-    /**
-     * SQL METHODS
-     ***************************************************************/
 
     static void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
     }
 
     static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO: implement update according to the project requirements
+
+        // implement update according to the project requirements
         Logger.i(LOG_TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion);
+
         db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
         onCreate(db);
     }
-
-    /**
-     * VALUES
-     ***************************************************************/
 
     public static ContentValues composeValues(Object object, String table) {
         ContentValues values = new ContentValues();

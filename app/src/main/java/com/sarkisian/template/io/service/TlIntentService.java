@@ -33,10 +33,6 @@ public class TlIntentService extends IntentService {
     }
 
     // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
     // Constructors
     // ===========================================================
 
@@ -45,15 +41,7 @@ public class TlIntentService extends IntentService {
     }
 
     // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Start/stop commands
+    // Util Methods
     // ===========================================================
 
     /**
@@ -62,7 +50,6 @@ public class TlIntentService extends IntentService {
      * @param postEntity  - POST request entity (json string that must be sent on server)
      * @param subscriber  - object(class) that started service
      */
-
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
         Intent intent = new Intent(context, TlIntentService.class);
@@ -170,9 +157,4 @@ public class TlIntentService extends IntentService {
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
 
     }
-
-    // ===========================================================
-    // Util
-    // ===========================================================
-
 }

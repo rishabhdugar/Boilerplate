@@ -16,20 +16,12 @@ public class TlDataBaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
     // Constructors
     // ===========================================================
 
     public TlDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
 
     // ===========================================================
     // Methods for/from SuperClass
@@ -44,16 +36,4 @@ public class TlDataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         TlDataBase.onUpgrade(db, oldVersion, newVersion);
     }
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }

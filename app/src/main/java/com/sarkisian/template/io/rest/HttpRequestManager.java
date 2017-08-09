@@ -24,26 +24,6 @@ public class HttpRequestManager {
     }
 
     // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
     // Methods
     // ===========================================================
 
@@ -53,7 +33,6 @@ public class HttpRequestManager {
      * @param postEntity    - post request json entity) if required, otherwise pass null
      * @param requestMethod - post, put, delete, get or other
      */
-
     public static HttpConnection executeRequest(Context context, String requestMethod, String url,
                                                 String token, String postEntity) {
         Bundle bundle = new Bundle();
@@ -132,11 +111,4 @@ public class HttpRequestManager {
                 break;
         }
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
-
-
-
 }

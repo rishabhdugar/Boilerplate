@@ -20,26 +20,6 @@ public class HttpResponseUtil {
     private static final String LOG_TAG = HttpResponseUtil.class.getSimpleName();
 
     // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
     // Methods
     // ===========================================================
 
@@ -57,7 +37,8 @@ public class HttpResponseUtil {
             try {
                 httpResponseCode = httpURLConnection.getResponseCode();
                 httpResponseMsg = httpURLConnection.getResponseMessage();
-                Logger.i(LOG_TAG, String.valueOf(httpResponseCode) + Constant.Symbol.SPACE + httpResponseMsg);
+                Logger.i(LOG_TAG, String.valueOf(httpResponseCode) + Constant.Symbol.SPACE
+                        + httpResponseMsg);
 
                 if (httpResponseCode <= HttpURLConnection.HTTP_BAD_REQUEST) {
                     if (httpResponseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
@@ -150,9 +131,12 @@ public class HttpResponseUtil {
             String httpResponseMsg = httpConnection.getHttpConnectionMessage();
 
             if (httpConnection.getHttpURLConnection() != null) {
-                httpResponseHeader.setToken(httpConnection.getHttpURLConnection().getHeaderField(Header.X_TOKEN));
-                httpResponseHeader.setETag(httpConnection.getHttpURLConnection().getHeaderField(Header.E_TAG));
-                httpResponseHeader.setLastModified(httpConnection.getHttpURLConnection().getHeaderField(Header.LAST_MODIFIED));
+                httpResponseHeader.setToken(httpConnection.getHttpURLConnection()
+                        .getHeaderField(Header.X_TOKEN));
+                httpResponseHeader.setETag(httpConnection.getHttpURLConnection()
+                        .getHeaderField(Header.E_TAG));
+                httpResponseHeader.setLastModified(httpConnection.getHttpURLConnection()
+                        .getHeaderField(Header.LAST_MODIFIED));
                 httpResponseHeader.setHttpConnectionSucceeded(true);
                 httpResponseHeader.setHttpConnectionCode(httpResponseCode);
                 httpResponseHeader.setHttpConnectionMessage(httpResponseMsg);
@@ -174,10 +158,5 @@ public class HttpResponseUtil {
 
         return httpResponseHeader;
     }
-
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 
 }

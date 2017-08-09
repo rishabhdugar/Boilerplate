@@ -16,6 +16,8 @@ public abstract class BaseFragment extends Fragment {
     // Constants
     // ===========================================================
 
+    private static final String LOG_TAG = BaseFragment.class.getSimpleName();
+
     // ===========================================================
     // Fields
     // ===========================================================

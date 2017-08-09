@@ -29,20 +29,6 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
     }
 
     // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
-
-    public interface AsyncQueryListener {
-        void onQueryComplete(int token, Object cookie, Cursor cursor);
-
-        void onInsertComplete(int token, Object cookie, Uri uri);
-
-        void onUpdateComplete(int token, Object cookie, int result);
-
-        void onDeleteComplete(int token, Object cookie, int result);
-    }
-
-    // ===========================================================
     // Fields
     // ===========================================================
 
@@ -56,10 +42,6 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         super(context.getContentResolver());
         mQueryListenerReference = new WeakReference<>(queryListenerReference);
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
 
     // ===========================================================
     // Methods for/from SuperClass
@@ -100,20 +82,8 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
     }
 
     // ===========================================================
-    // Listeners, methods for/from Interfaces
+    // Util Methods
     // ===========================================================
-
-    // ===========================================================
-    // Methods systems
-    // ===========================================================
-
-    // ===========================================================
-    // Methods controls
-    // ===========================================================
-
-    /**
-     * USER Methods
-     *************************************************************/
 
     public synchronized void getUser(long userId) {
         startQuery(
@@ -213,7 +183,18 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
     }
 
     // ===========================================================
-    // Methods helpers
+    // Inner and Anonymous Classes
     // ===========================================================
+
+    public interface AsyncQueryListener {
+        void onQueryComplete(int token, Object cookie, Cursor cursor);
+
+        void onInsertComplete(int token, Object cookie, Uri uri);
+
+        void onUpdateComplete(int token, Object cookie, int result);
+
+        void onDeleteComplete(int token, Object cookie, int result);
+    }
+
 
 }

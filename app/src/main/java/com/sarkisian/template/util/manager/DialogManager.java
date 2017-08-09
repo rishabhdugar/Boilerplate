@@ -315,8 +315,4 @@ public class DialogManager {
             mPreloaderDialog.setContentView(view);
         }
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }
