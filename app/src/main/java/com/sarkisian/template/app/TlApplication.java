@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.StrictMode;
 
 import com.sarkisian.template.BuildConfig;
+import com.squareup.leakcanary.LeakCanary;
 
 public class TlApplication extends Application {
 
@@ -18,14 +19,6 @@ public class TlApplication extends Application {
     // ===========================================================
 
     // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
@@ -33,6 +26,7 @@ public class TlApplication extends Application {
     public void onCreate() {
         super.onCreate();
         turnOnStrictMode();
+        installLeakCanary();
     }
 
     // ===========================================================
@@ -51,6 +45,13 @@ public class TlApplication extends Application {
                     .penaltyDeath()
                     .build());
         }
+    }
+
+    private void installLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     // ===========================================================
