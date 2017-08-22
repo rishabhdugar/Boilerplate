@@ -3,7 +3,7 @@
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/color_0072be</item>
         <item name="colorPrimary">@color/color_0099ff</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/color_e64f72</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="alertDialogTheme">@style/AlertDialog</item>
     </style>
@@ -35,6 +35,11 @@
 
     <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="colorAccent">@color/color_0099ff</item>
+    </style>
+
+    <style name="EditText" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
 </resources>
