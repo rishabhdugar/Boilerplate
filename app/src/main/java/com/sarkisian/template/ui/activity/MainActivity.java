@@ -21,14 +21,12 @@ import com.sarkisian.template.io.bus.event.NetworkEvent;
 import com.sarkisian.template.io.rest.HttpRequestManager;
 import com.sarkisian.template.io.rest.util.APIUtil;
 import com.sarkisian.template.io.service.TlIntentService;
-import com.sarkisian.template.io.service.TlService;
 import com.sarkisian.template.ui.fragment.MainFragment;
 import com.sarkisian.template.util.AppUtil;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.manager.FragmentTransactionManager;
 import com.sarkisian.template.util.manager.SnackBarManager;
 
-import static com.sarkisian.template.io.rest.util.APIUtil.LOGIN;
 import static com.sarkisian.template.io.rest.util.APIUtil.LOGOUT;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
@@ -74,14 +72,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         customizeActionBar();
         initDrawer();
         openScreen(MainFragment.newInstance(), false, R.id.nav_one);
-
-        TlService.start(
-                MainActivity.this,
-                MainActivity.class.getSimpleName(),
-                APIUtil.getURL(LOGIN),
-                HttpRequestManager.RequestType.LOG_IN
-        );
-
     }
 
     @Override
