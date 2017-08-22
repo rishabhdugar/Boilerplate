@@ -6,18 +6,10 @@
     android:background="@color/color_233944"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/iv_drawer_header_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_drawer_header_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_drawer_android"/>
-
-    </LinearLayout>
+        android:src="@drawable/img_drawer_android"/>
 
 </FrameLayout>

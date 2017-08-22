@@ -87,7 +87,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private void findViews(View view) {
     }
 
-    public void getData() {
+    private void getData() {
         if (getArguments() != null) {
             mArgumentData = getArguments().getBundle(Constant.Argument.ARGUMENT_DATA);
         }

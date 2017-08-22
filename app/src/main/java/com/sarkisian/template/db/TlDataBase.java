@@ -43,7 +43,7 @@ public class TlDataBase {
             + ");";
 
     public static class Projection {
-        public static String[] USER = {
+        public static final String[] USER = {
                 TlDataBase.USER_PK,
                 TlDataBase.USER_ID,
                 TlDataBase.USER_NAME,
@@ -54,7 +54,7 @@ public class TlDataBase {
                 TlDataBase.USER_AVATAR
         };
 
-        public static String[] COUNT = {
+        public static final String[] COUNT = {
                 "COUNT(*)"
         };
     }
