@@ -25,7 +25,7 @@ public class TlIntentService extends IntentService {
 
     private static final String LOG_TAG = TlIntentService.class.getSimpleName();
 
-    private static final class Extra {
+    private static class Extra {
         static final String URL = "URL";
         static final String POST_ENTITY = "POST_ENTITY";
         static final String SUBSCRIBER = "SUBSCRIBER";

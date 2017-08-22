@@ -32,7 +32,7 @@ public class TlService extends Service {
     private static final String LOG_TAG = TlService.class.getSimpleName();
     private static final int THREAD_POOL_SIZE = 5; // Runtime.getRuntime().availableProcessors()
 
-    private static final class Extra {
+    private static class Extra {
         static final String URL = "URL";
         static final String POST_ENTITY = "POST_ENTITY";
         static final String SUBSCRIBER = "SUBSCRIBER";
