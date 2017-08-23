@@ -37,27 +37,27 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
             debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
         }
+
         release {
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-            debuggable false
         }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    debugCompile 'com.amitshekhar.android:debug-db:0.2.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    debugCompile 'com.facebook.stetho:stetho:1.5.0'
 }

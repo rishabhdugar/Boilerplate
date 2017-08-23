@@ -3,6 +3,7 @@ package com.sarkisian.template.app;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.facebook.stetho.Stetho;
 import com.sarkisian.template.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -27,6 +28,7 @@ public class TlApplication extends Application {
         super.onCreate();
         turnOnStrictMode();
         installLeakCanary();
+        installStetho();
     }
 
     // ===========================================================
@@ -48,10 +50,18 @@ public class TlApplication extends Application {
     }
 
     private void installLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
+        if (BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                return;
+            }
+            LeakCanary.install(this);
         }
-        LeakCanary.install(this);
+    }
+
+    private void installStetho() {
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
     }
 
     // ===========================================================
