@@ -87,7 +87,6 @@ public class TlService extends Service {
 
     @Override
     public int onStartCommand(final Intent intent, int flags, final int startId) {
-
         final String url = intent.getExtras().getString(Extra.URL);
         final String postEntity = intent.getExtras().getString(Extra.POST_ENTITY);
         final String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
