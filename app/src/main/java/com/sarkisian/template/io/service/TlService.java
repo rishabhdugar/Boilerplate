@@ -18,7 +18,6 @@ import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -44,6 +43,7 @@ public class TlService extends Service {
     // ===========================================================
 
     private ExecutorService mExecutorService;
+    private Thread mServiceTask;
 
     // ===========================================================
     // Util Methods
@@ -86,16 +86,42 @@ public class TlService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        WeakReference<RunnableTask> serviceWeakReference = new WeakReference<>(
-                new RunnableTask(intent, startId));
-        mExecutorService.execute(serviceWeakReference.get());
+    public int onStartCommand(final Intent intent, int flags, final int startId) {
+
+        final String url = intent.getExtras().getString(Extra.URL);
+        final String postEntity = intent.getExtras().getString(Extra.POST_ENTITY);
+        final String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
+        final int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
+        Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
+
+        mServiceTask = new Thread() {
+            @Override
+            public void run() {
+                if (!isInterrupted()) {
+                    switch (requestType) {
+                        case HttpRequestManager.RequestType.LOG_IN:
+                            logInRequest(url, postEntity, subscriber);
+                            break;
+
+                        case HttpRequestManager.RequestType.LOG_OUT:
+                            logOutRequest(url, subscriber);
+                            break;
+                    }
+
+                    // TODO: implement stopSelf according to the project requirements
+                    // stopSelf(startId);
+                }
+            }
+        };
+
+        mExecutorService.execute(mServiceTask);
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mServiceTask.interrupt();
         mExecutorService.shutdown();
     }
 
@@ -168,43 +194,6 @@ public class TlService extends Service {
         Preference.getInstance(this).setUserToken(null);
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
 
-    }
-
-
-    // ===========================================================
-    // Inner classes
-    // ===========================================================
-
-    private class RunnableTask implements Runnable {
-
-        int startId;
-        Intent intent;
-
-        RunnableTask(Intent intent, int startId) {
-            this.startId = startId;
-            this.intent = intent;
-        }
-
-        public void run() {
-            String url = intent.getExtras().getString(Extra.URL);
-            String postEntity = intent.getExtras().getString(Extra.POST_ENTITY);
-            String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
-            int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
-            Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
-
-            switch (requestType) {
-                case HttpRequestManager.RequestType.LOG_IN:
-                    logInRequest(url, postEntity, subscriber);
-                    break;
-
-                case HttpRequestManager.RequestType.LOG_OUT:
-                    logOutRequest(url, subscriber);
-                    break;
-            }
-
-            // TODO: implement according to the project requirements
-            stopSelf(startId);
-        }
     }
 
 }
