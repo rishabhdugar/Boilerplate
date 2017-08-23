@@ -98,6 +98,7 @@ public class TlService extends Service {
             @Override
             public void run() {
                 if (!isInterrupted()) {
+
                     switch (requestType) {
                         case HttpRequestManager.RequestType.LOG_IN:
                             logInRequest(url, postEntity, subscriber);

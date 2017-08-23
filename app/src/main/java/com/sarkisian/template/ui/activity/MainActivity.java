@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         findViews();
         setListeners();
         customizeActionBar();
-        initDrawer();
+        initDrawer();//87877968
         openScreen(MainFragment.newInstance(), false, R.id.nav_one);
     }
 
