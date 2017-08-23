@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.sarkisian.template"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
     }
@@ -55,11 +55,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.google.guava:guava:20.0'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:design:26.0.1'
+    compile 'com.google.guava:guava:23.0-android'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
     debugCompile 'com.facebook.stetho:stetho:1.5.0'
 }
