@@ -24,14 +24,19 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     // ===========================================================
 
     private static NetworkStateReceiver sInstance;
+    private Context mContext;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    public static NetworkStateReceiver getInstance() {
+    public NetworkStateReceiver(Context context) {
+        mContext = context;
+    }
+
+    public static NetworkStateReceiver getInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new NetworkStateReceiver();
+            sInstance = new NetworkStateReceiver(context);
         }
         return sInstance;
     }
@@ -60,16 +65,17 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     // Methods
     // ===========================================================
 
-    public void registerBroadcast(Context context) {
-        context.registerReceiver(sInstance,
+    public void registerBroadcast() {
+        mContext.registerReceiver(sInstance,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
-    public void unregisterBroadcast(Context context) {
+    public void unregisterBroadcast() {
         try {
-            context.unregisterReceiver(sInstance);
+            mContext.unregisterReceiver(sInstance);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+        mContext = null;
     }
 }
