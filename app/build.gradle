@@ -40,7 +40,9 @@ android {
             applicationIdSuffix '.debug'
             versionNameSuffix '-debug'
             debuggable true
-            minifyEnabled false
+            minifyEnabled true
+            // set 'useProguard false' and 'minifyEnabled true' to shrink code without obfuscating
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
 
