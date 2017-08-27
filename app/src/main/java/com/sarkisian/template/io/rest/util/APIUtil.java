@@ -9,14 +9,6 @@ public class APIUtil {
     private static final String HOST_PRODUCTION = "http://your_domain.prod.com";
     private static final String HOST_STAGING = "http://your_domain.stag.com";
 
-    public static String getHost() {
-        if (BuildConfig.BUILD_TYPE.equals(Constant.BuildType.RELEASE)) {
-            return HOST_PRODUCTION;
-        } else {
-            return HOST_STAGING;
-        }
-    }
-
     /**
      * @param requestType   - string constant that helps us to distinguish
      *                        requests and compose necessary apiUrl
@@ -61,5 +53,13 @@ public class APIUtil {
                 break;
         }
         return apiUrl;
+    }
+
+    public static String getHost() {
+        if (BuildConfig.BUILD_TYPE.equals(Constant.BuildType.RELEASE)) {
+            return HOST_PRODUCTION;
+        } else {
+            return HOST_STAGING;
+        }
     }
 }
