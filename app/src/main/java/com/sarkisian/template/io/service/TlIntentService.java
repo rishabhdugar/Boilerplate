@@ -46,7 +46,7 @@ public class TlIntentService extends IntentService {
 
     /**
      * @param url         - API url
-     * @param requestType - string constant that helps us to distinguish requests
+     * @param requestType - int constant that helps us to distinguish requests
      * @param postEntity  - POST request entity (json string that must be sent on server)
      * @param subscriber  - object(class) that started service
      */

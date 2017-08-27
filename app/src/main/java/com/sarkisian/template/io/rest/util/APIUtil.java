@@ -10,7 +10,7 @@ public class APIUtil {
     private static final String HOST_STAGING = "http://your_domain.stag.com";
 
     /**
-     * @param requestType   - string constant that helps us to distinguish
+     * @param requestType   - int constant that helps us to distinguish
      *                        requests and compose necessary apiUrl
      * @param id            - item id which can be passed to url to get item by id from server
      * @param param         - any param which can be requided in url
