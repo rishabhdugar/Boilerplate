@@ -207,7 +207,7 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
             TlIntentService.start(
                     this,
                     getClass().getSimpleName(),
-                    APIUtil.getURL(APIUtil.LOGIN),
+                    APIUtil.getURL(HttpRequestManager.RequestType.LOG_IN),
                     postEntity,
                     HttpRequestManager.RequestType.LOG_IN
             );

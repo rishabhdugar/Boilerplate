@@ -27,8 +27,6 @@ import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.manager.FragmentTransactionManager;
 import com.sarkisian.template.util.manager.SnackBarManager;
 
-import static com.sarkisian.template.io.rest.util.APIUtil.LOGOUT;
-
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -178,7 +176,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 TlIntentService.start(
                         MainActivity.this,
                         MainActivity.class.getSimpleName(),
-                        APIUtil.getURL(LOGOUT),
+                        APIUtil.getURL(HttpRequestManager.RequestType.LOG_OUT),
                         HttpRequestManager.RequestType.LOG_OUT
                 );
                 break;

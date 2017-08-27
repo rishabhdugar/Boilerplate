@@ -19,8 +19,10 @@ public class HttpRequestManager {
     private static final String LOG_TAG = HttpRequestManager.class.getSimpleName();
 
     public static class RequestType {
+        // do not start with 0
         public static final int LOG_IN = 1;
         public static final int LOG_OUT = 2;
+        public static final int ITEM = 3;
     }
 
     // ===========================================================
