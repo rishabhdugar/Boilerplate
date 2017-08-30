@@ -131,8 +131,7 @@ public class TlIntentService extends IntentService {
             }
 
         } else {
-            Logger.e(LOG_TAG, httpConnection.getHttpConnectionMessage()
-                    + Constant.Symbol.SPACE + httpConnection.getHttpConnectionCode());
+            Logger.e(LOG_TAG, httpConnection.getHttpConnectionMessage());
             HttpRequestManager.handleFailedRequest(subscriber, httpConnection);
         }
     }

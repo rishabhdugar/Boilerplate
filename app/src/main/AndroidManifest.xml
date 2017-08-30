@@ -19,6 +19,12 @@
         <service
             android:name=".io.service.TlService"/>
 
+        <service
+            android:name=".io.service.TlExecutorService"/>
+
+        <service
+            android:name=".io.service.TlThreadPoolExecutorService"/>
+
         <provider
             android:name=".db.provider.TlProvider"
             android:authorities="${applicationId}"/>

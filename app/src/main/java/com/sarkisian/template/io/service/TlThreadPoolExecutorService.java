@@ -18,18 +18,23 @@ import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
-public class TlExecutorService extends Service {
+public class TlThreadPoolExecutorService extends Service {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TlExecutorService.class.getSimpleName();
-    private static final int THREAD_POOL_SIZE = 10;
+    private static final String LOG_TAG = TlThreadPoolExecutorService.class.getSimpleName();
+
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
+    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+    private static final int KEEP_ALIVE_TIME = 30;
 
     private static class Extra {
         static final String URL = "URL";
@@ -42,7 +47,7 @@ public class TlExecutorService extends Service {
     // Fields
     // ===========================================================
 
-    private ExecutorService mExecutorService;
+    private ThreadPoolExecutor mThreadPoolExecutor;
 
     // ===========================================================
     // Util Methods
@@ -57,7 +62,7 @@ public class TlExecutorService extends Service {
 
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
-        Intent intent = new Intent(context, TlExecutorService.class);
+        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -67,7 +72,7 @@ public class TlExecutorService extends Service {
 
     public static void start(Context context, String subscriber, String url,
                              int requestType) {
-        Intent intent = new Intent(context, TlExecutorService.class);
+        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -81,7 +86,13 @@ public class TlExecutorService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mExecutorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        mThreadPoolExecutor = new ThreadPoolExecutor(
+                CORE_POOL_SIZE,
+                MAXIMUM_POOL_SIZE,
+                KEEP_ALIVE_TIME,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>()
+        );
     }
 
     @Override
@@ -92,7 +103,7 @@ public class TlExecutorService extends Service {
         final int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
         Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
 
-        mExecutorService.execute(new Runnable() {
+        mThreadPoolExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 switch (requestType) {
@@ -116,7 +127,7 @@ public class TlExecutorService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mExecutorService.shutdown();
+        mThreadPoolExecutor.shutdown();
     }
 
     @Nullable
