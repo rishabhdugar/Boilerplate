@@ -1,40 +1,28 @@
-package com.sarkisian.template.io.service;
+package com.sarkisian.template.api.service;
 
-import android.app.Service;
+import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.handler.TlQueryHandler;
-import com.sarkisian.template.io.bus.BusProvider;
-import com.sarkisian.template.io.bus.event.ApiEvent;
-import com.sarkisian.template.io.bus.event.Event;
-import com.sarkisian.template.io.rest.HttpRequestManager;
-import com.sarkisian.template.io.rest.RestHttpClient;
-import com.sarkisian.template.io.rest.entity.HttpConnection;
-import com.sarkisian.template.util.Constant;
+import com.sarkisian.template.api.bus.BusProvider;
+import com.sarkisian.template.api.bus.event.ApiEvent;
+import com.sarkisian.template.api.bus.event.Event;
+import com.sarkisian.template.api.rest.HttpRequestManager;
+import com.sarkisian.template.api.rest.RestHttpClient;
+import com.sarkisian.template.api.rest.entity.HttpConnection;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-
-public class TlThreadPoolExecutorService extends Service {
+public class TlIntentService extends IntentService {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final String LOG_TAG = TlThreadPoolExecutorService.class.getSimpleName();
-
-    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
-    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
-    private static final int KEEP_ALIVE_TIME = 30;
+    private static final String LOG_TAG = TlIntentService.class.getSimpleName();
 
     private static class Extra {
         static final String URL = "URL";
@@ -44,25 +32,26 @@ public class TlThreadPoolExecutorService extends Service {
     }
 
     // ===========================================================
-    // Fields
+    // Constructors
     // ===========================================================
 
-    private ThreadPoolExecutor mThreadPoolExecutor;
+    public TlIntentService() {
+        super(TlIntentService.class.getName());
+    }
 
     // ===========================================================
     // Util Methods
     // ===========================================================
 
     /**
-     * @param url         - calling api url
+     * @param url         - API url
      * @param requestType - int constant that helps us to distinguish requests
      * @param postEntity  - POST request entity (json string that must be sent on server)
      * @param subscriber  - object(class) that started service
      */
-
     public static void start(Context context, String subscriber, String url, String postEntity,
                              int requestType) {
-        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
+        Intent intent = new Intent(context, TlIntentService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -72,7 +61,7 @@ public class TlThreadPoolExecutorService extends Service {
 
     public static void start(Context context, String subscriber, String url,
                              int requestType) {
-        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
+        Intent intent = new Intent(context, TlIntentService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -84,70 +73,36 @@ public class TlThreadPoolExecutorService extends Service {
     // ===========================================================
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        mThreadPoolExecutor = new ThreadPoolExecutor(
-                CORE_POOL_SIZE,
-                MAXIMUM_POOL_SIZE,
-                KEEP_ALIVE_TIME,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>()
-        );
-    }
+    protected void onHandleIntent(Intent intent) {
+        String url = intent.getExtras().getString(Extra.URL);
+        String data = intent.getExtras().getString(Extra.POST_ENTITY);
+        String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
+        int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
+        Logger.i(LOG_TAG, url);
 
-    @Override
-    public int onStartCommand(final Intent intent, int flags, final int startId) {
-        final String url = intent.getExtras().getString(Extra.URL);
-        final String postEntity = intent.getExtras().getString(Extra.POST_ENTITY);
-        final String subscriber = intent.getExtras().getString(Extra.SUBSCRIBER);
-        final int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
-        Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
+        switch (requestType) {
+            case HttpRequestManager.RequestType.LOG_IN:
+                logInRequest(url, data, subscriber);
+                break;
 
-        mThreadPoolExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                switch (requestType) {
-                    case HttpRequestManager.RequestType.LOG_IN:
-                        logInRequest(url, postEntity, subscriber);
-                        break;
-
-                    case HttpRequestManager.RequestType.LOG_OUT:
-                        logOutRequest(url, subscriber);
-                        break;
-                }
-            }
-        });
-
-        // TODO: implement stopSelf according to the project requirements
-        // stopSelf(startId);
-
-        return START_NOT_STICKY;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mThreadPoolExecutor.shutdown();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+            case HttpRequestManager.RequestType.LOG_OUT:
+                logOutRequest(url, data, subscriber);
+                break;
+        }
     }
 
     // ===========================================================
     // Methods
     // ===========================================================
 
-    private void logInRequest(String url, String postEntity, String subscriber) {
+    private void logInRequest(String url, String data, String subscriber) {
 
         HttpConnection httpConnection = HttpRequestManager.executeRequest(
                 this,
                 RestHttpClient.RequestMethod.POST,
                 url,
                 null,
-                postEntity
+                data
         );
 
         /* For project with working API move below code
@@ -180,22 +135,24 @@ public class TlThreadPoolExecutorService extends Service {
         }
     }
 
-    private void logOutRequest(String url, String subscriber) {
+    private void logOutRequest(String url, String value, String subscriber) {
 
         HttpConnection httpConnection = HttpRequestManager.executeRequest(
                 this,
                 RestHttpClient.RequestMethod.POST,
                 url,
                 Preference.getInstance(this).getUserToken(),
-                null
+                value
         );
 
         // TODO: Implement logout logic depending on project demands
         if (httpConnection.isHttpConnectionSucceeded()) {
+
         }
 
         // Drop user token and other necessary data (e.g. DB tables)
         Preference.getInstance(this).setUserToken(null);
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
+
     }
 }

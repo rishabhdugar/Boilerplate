@@ -1,7 +1,7 @@
-package com.sarkisian.template.io.rest.util;
+package com.sarkisian.template.api.rest.util;
 
-import com.sarkisian.template.io.rest.entity.HttpConnection;
-import com.sarkisian.template.io.rest.entity.HttpResponseHeader;
+import com.sarkisian.template.api.rest.entity.HttpConnection;
+import com.sarkisian.template.api.rest.entity.HttpResponseHeader;
 import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 

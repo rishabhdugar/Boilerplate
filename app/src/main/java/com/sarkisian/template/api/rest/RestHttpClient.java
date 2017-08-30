@@ -1,10 +1,10 @@
-package com.sarkisian.template.io.rest;
+package com.sarkisian.template.api.rest;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import com.sarkisian.template.io.rest.entity.HttpConnection;
-import com.sarkisian.template.io.rest.util.HttpErrorUtil;
+import com.sarkisian.template.api.rest.entity.HttpConnection;
+import com.sarkisian.template.api.rest.util.HttpErrorUtil;
 import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.NetworkUtil;

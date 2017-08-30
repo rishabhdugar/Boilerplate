@@ -1,4 +1,4 @@
-package com.sarkisian.template.io.bus;
+package com.sarkisian.template.api.bus;
 
 import android.os.Handler;
 import android.os.Looper;

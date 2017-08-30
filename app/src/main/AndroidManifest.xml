@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".app.TlApplication"
+        android:name=".TlApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,16 +14,16 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".io.service.TlIntentService"/>
+            android:name=".api.service.TlIntentService"/>
 
         <service
-            android:name=".io.service.TlService"/>
+            android:name=".api.service.TlService"/>
 
         <service
-            android:name=".io.service.TlExecutorService"/>
+            android:name=".api.service.TlExecutorService"/>
 
         <service
-            android:name=".io.service.TlThreadPoolExecutorService"/>
+            android:name=".api.service.TlThreadPoolExecutorService"/>
 
         <provider
             android:name=".db.provider.TlProvider"

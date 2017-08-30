@@ -1,4 +1,4 @@
-package com.sarkisian.template.io.bus.event;
+package com.sarkisian.template.api.bus.event;
 
 public abstract class Event {
 

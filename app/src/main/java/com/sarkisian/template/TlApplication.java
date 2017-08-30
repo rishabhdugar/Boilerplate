@@ -1,10 +1,9 @@
-package com.sarkisian.template.app;
+package com.sarkisian.template;
 
 import android.app.Application;
 import android.os.StrictMode;
 
 import com.facebook.stetho.Stetho;
-import com.sarkisian.template.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 
 public class TlApplication extends Application {

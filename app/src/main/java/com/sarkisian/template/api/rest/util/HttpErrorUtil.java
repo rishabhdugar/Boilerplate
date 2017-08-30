@@ -1,4 +1,4 @@
-package com.sarkisian.template.io.rest.util;
+package com.sarkisian.template.api.rest.util;
 
 public class HttpErrorUtil {
 

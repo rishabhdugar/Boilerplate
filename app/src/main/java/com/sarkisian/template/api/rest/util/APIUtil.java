@@ -1,7 +1,7 @@
-package com.sarkisian.template.io.rest.util;
+package com.sarkisian.template.api.rest.util;
 
 import com.sarkisian.template.BuildConfig;
-import com.sarkisian.template.io.rest.HttpRequestManager;
+import com.sarkisian.template.api.rest.HttpRequestManager;
 import com.sarkisian.template.util.Constant;
 
 public class APIUtil {
