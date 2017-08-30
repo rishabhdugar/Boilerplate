@@ -3,7 +3,10 @@ package com.sarkisian.template.io.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Process;
 import android.support.annotation.Nullable;
 
 import com.sarkisian.template.db.entity.User;
@@ -18,9 +21,6 @@ import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 
 public class TlService extends Service {
 
@@ -29,7 +29,6 @@ public class TlService extends Service {
     // ===========================================================
 
     private static final String LOG_TAG = TlService.class.getSimpleName();
-    private static final int THREAD_POOL_SIZE = 5; // Runtime.getRuntime().availableProcessors()
 
     private static class Extra {
         static final String URL = "URL";
@@ -42,8 +41,8 @@ public class TlService extends Service {
     // Fields
     // ===========================================================
 
-    private ExecutorService mExecutorService;
-    private Thread mServiceTask;
+    private Handler mHandler;
+    private HandlerThread mHandlerThread;
 
     // ===========================================================
     // Util Methods
@@ -82,7 +81,10 @@ public class TlService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mExecutorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        mHandlerThread = new HandlerThread(TlService.class.getSimpleName(),
+                Process.THREAD_PRIORITY_BACKGROUND);
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
     }
 
     @Override
@@ -93,36 +95,31 @@ public class TlService extends Service {
         final int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
         Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
 
-        mServiceTask = new Thread() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
-                if (!isInterrupted()) {
+                switch (requestType) {
+                    case HttpRequestManager.RequestType.LOG_IN:
+                        logInRequest(url, postEntity, subscriber);
+                        break;
 
-                    switch (requestType) {
-                        case HttpRequestManager.RequestType.LOG_IN:
-                            logInRequest(url, postEntity, subscriber);
-                            break;
-
-                        case HttpRequestManager.RequestType.LOG_OUT:
-                            logOutRequest(url, subscriber);
-                            break;
-                    }
-
-                    // TODO: implement stopSelf according to the project requirements
-                    // stopSelf(startId);
+                    case HttpRequestManager.RequestType.LOG_OUT:
+                        logOutRequest(url, subscriber);
+                        break;
                 }
             }
-        };
+        });
 
-        mExecutorService.execute(mServiceTask);
+        // TODO: implement stopSelf according to the project requirements
+        // stopSelf(startId);
+
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mServiceTask.interrupt();
-        mExecutorService.shutdown();
+        mHandlerThread.quit();
     }
 
     @Nullable
@@ -193,7 +190,5 @@ public class TlService extends Service {
         // Drop user token and other necessary data (e.g. DB tables)
         Preference.getInstance(this).setUserToken(null);
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
-
     }
-
 }
