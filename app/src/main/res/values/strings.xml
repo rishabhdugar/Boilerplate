@@ -1,7 +1,7 @@
 <resources>
 
     <!--Main-->
-    <string name="app_name">Template</string>
+    <string name="app_name">Boilerplate</string>
 
     <!--Util-->
     <string name="msg_network_connection_error">No Internet connection</string>
@@ -15,7 +15,7 @@
 
     <!--Auth screen strings-->
     <string name="text_btn_auth_sign">Login</string>
-    <string name="text_welcome">Welcome to \'Template\' \nPlease, login with any fake credentials to proceed</string>
+    <string name="text_welcome">Welcome to \'Boilerplate\' \nPlease, login with any fake credentials to proceed</string>
 
     <!--Navigation drawer menu items-->
     <string name="text_one">First item</string>

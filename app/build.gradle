@@ -6,7 +6,7 @@ android {
     buildToolsVersion '26.0.1'
 
     defaultConfig {
-        applicationId "com.sarkisian.template"
+        applicationId "com.sarkisian.boilerplate"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
