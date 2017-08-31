@@ -12,12 +12,12 @@ public class FragmentTransactionManager {
             fragmentManager.beginTransaction()
                     .addToBackStack(null)
                     .replace(view, fragment, fragment.getClass().getSimpleName())
-                    .commitAllowingStateLoss();
+                    .commit();
 
         } else {
             fragmentManager.beginTransaction()
                     .replace(view, fragment, fragment.getClass().getSimpleName())
-                    .commitAllowingStateLoss();
+                    .commit();
         }
     }
 }
