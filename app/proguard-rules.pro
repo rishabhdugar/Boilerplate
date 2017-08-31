@@ -4,13 +4,14 @@
 -keepattributes SourceFile,LineNumberTable
 -allowaccessmodification
 
--dontwarn com.squareup.picasso.**
 -dontwarn android.support.**
 -dontwarn com.futurice.project.models.pojo.**
 -dontwarn sun.misc.Unsafe
 -dontwarn com.google.gson.**
 -dontwarn com.google.**
 -dontwarn com.facebook.**
+-dontwarn com.facebook.**
+-dontwarn com.squareup.**
 -dontwarn com.nostra13.**
 -dontwarn com.amulyakhare.**
 -dontwarn de.hdodenhof.**
@@ -18,6 +19,7 @@
 -dontwarn com.amulyakhar.**
 -dontwarn com.theartofdev.**
 -dontwarn com.github.paolorotolo.**
+-dontwarn com.github.bumptech.glide.**
 -dontwarn com.yalantis.**
 -dontwarn com.viewpagerindicator.**
 -dontwarn com.directions.**
@@ -27,7 +29,6 @@
 -dontwarn okio.**
 -dontwarn net.hockeyapp.android.**
 -dontwarn android.webkit.**
-
 -dontwarn java.lang.ClassValue
 -dontwarn com.google.j2objc.annotations.Weak
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
@@ -35,7 +36,6 @@
 -keepattributes Signature
 -keepattributes *Annotation*
 -keepattributes EnclosingMethod
-
 -keepclassmembers class ** {
     @com.google.common.eventbus.Subscribe public *;
 }
@@ -44,6 +44,7 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.** { *; }
 -keep class com.google.** { *; }
+-keep class com.squareup.** { *; }
 -keep class com.facebook.** { *; }
 -keep class com.nostra13.** { *; }
 -keep class com.amulyakhare.** { *; }
@@ -52,14 +53,15 @@
 -keep class com.amulyakhar.** { *; }
 -keep class com.theartofdev.** { *; }
 -keep class com.github.paolorotolo.** { *; }
+-keep class com.github.bumptech.glide.** { *; }
 -keep class com.yalantis.** { *; }
 -keep class com.viewpagerindicator.** { *; }
 -keep class com.directions.** { *; }
 -keep class com.google.guava.** { *; }
-
 -keep class android.support.** { *; }
 -keep class android.support.v4.** { *; }
 -keep class android.support.v7.** { *; }
+
 -keep interface android.support.v7.** { *; }
 -keep interface android.support.v4.** { *; }
 

@@ -1,4 +1,4 @@
-package com.sarkisian.template.api.service;
+package com.sarkisian.template.sync.service;
 
 import android.app.Service;
 import android.content.Context;
@@ -11,12 +11,12 @@ import android.support.annotation.Nullable;
 
 import com.sarkisian.template.db.entity.User;
 import com.sarkisian.template.db.handler.TlQueryHandler;
-import com.sarkisian.template.api.bus.BusProvider;
-import com.sarkisian.template.api.bus.event.ApiEvent;
-import com.sarkisian.template.api.bus.event.Event;
-import com.sarkisian.template.api.rest.HttpRequestManager;
-import com.sarkisian.template.api.rest.RestHttpClient;
-import com.sarkisian.template.api.rest.entity.HttpConnection;
+import com.sarkisian.template.sync.bus.BusProvider;
+import com.sarkisian.template.sync.bus.event.ApiEvent;
+import com.sarkisian.template.sync.bus.event.Event;
+import com.sarkisian.template.sync.rest.HttpRequestManager;
+import com.sarkisian.template.sync.rest.RestHttpClient;
+import com.sarkisian.template.sync.rest.entity.HttpConnection;
 import com.sarkisian.template.util.Constant;
 import com.sarkisian.template.util.Logger;
 import com.sarkisian.template.util.Preference;

@@ -1,4 +1,4 @@
-package com.sarkisian.template.api.rest.util;
+package com.sarkisian.template.sync.rest.util;
 
 public class HttpErrorUtil {
 

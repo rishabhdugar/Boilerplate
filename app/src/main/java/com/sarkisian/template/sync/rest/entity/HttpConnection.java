@@ -1,4 +1,4 @@
-package com.sarkisian.template.api.rest.entity;
+package com.sarkisian.template.sync.rest.entity;
 
 import java.net.HttpURLConnection;
 

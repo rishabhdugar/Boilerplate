@@ -1,14 +1,14 @@
-package com.sarkisian.template.api.rest;
+package com.sarkisian.template.sync.rest;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import com.sarkisian.template.api.bus.BusProvider;
-import com.sarkisian.template.api.bus.event.ApiEvent;
-import com.sarkisian.template.api.bus.event.Event;
-import com.sarkisian.template.api.rest.entity.HttpConnection;
-import com.sarkisian.template.api.rest.util.HttpErrorUtil;
-import com.sarkisian.template.api.rest.util.HttpResponseUtil;
+import com.sarkisian.template.sync.bus.BusProvider;
+import com.sarkisian.template.sync.bus.event.ApiEvent;
+import com.sarkisian.template.sync.bus.event.Event;
+import com.sarkisian.template.sync.rest.entity.HttpConnection;
+import com.sarkisian.template.sync.rest.util.HttpErrorUtil;
+import com.sarkisian.template.sync.rest.util.HttpResponseUtil;
 
 public class HttpRequestManager {
 

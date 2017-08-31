@@ -7,9 +7,9 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.sarkisian.template.api.bus.BusProvider;
-import com.sarkisian.template.api.bus.event.Event;
-import com.sarkisian.template.api.bus.event.NetworkEvent;
+import com.sarkisian.template.sync.bus.BusProvider;
+import com.sarkisian.template.sync.bus.event.Event;
+import com.sarkisian.template.sync.bus.event.NetworkEvent;
 
 public class NetworkStateReceiver extends BroadcastReceiver {
 

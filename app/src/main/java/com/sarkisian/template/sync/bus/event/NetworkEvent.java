@@ -1,4 +1,4 @@
-package com.sarkisian.template.api.bus.event;
+package com.sarkisian.template.sync.bus.event;
 
 public class NetworkEvent extends Event {
 

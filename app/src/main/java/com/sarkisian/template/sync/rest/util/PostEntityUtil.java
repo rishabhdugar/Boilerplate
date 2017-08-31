@@ -1,4 +1,4 @@
-package com.sarkisian.template.api.rest.util;
+package com.sarkisian.template.sync.rest.util;
 
 import com.sarkisian.template.util.EncodeUtil;
 import com.sarkisian.template.util.Logger;

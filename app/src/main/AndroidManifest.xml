@@ -14,16 +14,16 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".api.service.TlIntentService"/>
+            android:name=".sync.service.TlIntentService"/>
 
         <service
-            android:name=".api.service.TlService"/>
+            android:name=".sync.service.TlService"/>
 
         <service
-            android:name=".api.service.TlExecutorService"/>
+            android:name=".sync.service.TlExecutorService"/>
 
         <service
-            android:name=".api.service.TlThreadPoolExecutorService"/>
+            android:name=".sync.service.TlThreadPoolExecutorService"/>
 
         <provider
             android:name=".db.provider.TlProvider"
