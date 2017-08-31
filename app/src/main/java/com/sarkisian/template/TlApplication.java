@@ -9,7 +9,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class TlApplication extends Application {
 
     // ===========================================================
-    // Constants
+    // Constantsw
     // ===========================================================
 
     private static final String LOG_TAG = TlApplication.class.getName();
