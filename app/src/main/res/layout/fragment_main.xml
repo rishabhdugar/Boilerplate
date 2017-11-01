@@ -7,5 +7,18 @@
               android:clickable="true"
               android:orientation="vertical">
 
+    <ScrollView
+        android:id="@+id/text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/give_you_glory"
+            android:hint="UserName"/>
+    </ScrollView>
+
 
 </LinearLayout>
