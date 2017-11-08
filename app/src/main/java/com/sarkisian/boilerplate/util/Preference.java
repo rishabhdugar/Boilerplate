@@ -30,7 +30,7 @@ public class Preference {
         mEditor = mSharedPreferences.edit();
     }
 
-    public static Preference getInstance(Context context) {
+    public static synchronized Preference getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new Preference(context);
         }
