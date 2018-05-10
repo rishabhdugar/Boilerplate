@@ -2,7 +2,6 @@ package com.sarkisian.boilerplate.sync.rest.util;
 
 import com.sarkisian.boilerplate.BuildConfig;
 import com.sarkisian.boilerplate.sync.rest.HttpRequestManager;
-import com.sarkisian.boilerplate.util.Constant;
 
 public class APIUtil {
 
@@ -55,8 +54,8 @@ public class APIUtil {
         return apiUrl;
     }
 
-    public static String getHost() {
-        if (BuildConfig.BUILD_TYPE.equals(Constant.BuildType.RELEASE)) {
+    private static String getHost() {
+        if (!BuildConfig.DEBUG) {
             return HOST_PRODUCTION;
         } else {
             return HOST_STAGING;

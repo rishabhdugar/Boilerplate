@@ -9,7 +9,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class TlApplication extends Application {
 
     // ===========================================================
-    // Constantsw
+    // Constants
     // ===========================================================
 
     private static final String LOG_TAG = TlApplication.class.getName();
@@ -62,8 +62,4 @@ public class TlApplication extends Application {
             Stetho.initializeWithDefaults(this);
         }
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }

@@ -23,19 +23,12 @@ public class AppUtil {
 
     public static int getStatusBarHeight(Context context) {
         int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = context.getResources().getIdentifier("status_bar_height",
+                "dimen", "android");
         if (resourceId > 0) {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
-    }
-
-    public static int booleanToInt(boolean b) {
-        return b ? 1 : 0;
-    }
-
-    public static boolean intToBoolean(int b) {
-        return b == 1;
     }
 
     public static void logOutFromApp(Context context) {
@@ -47,9 +40,11 @@ public class AppUtil {
 
     public static boolean isServiceRunning(Context context, Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
+        if (manager != null) {
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -68,9 +63,20 @@ public class AppUtil {
 
     public static void showKeyboard(Activity activity) {
         if (activity != null) {
-            ((InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE))
-                    .toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            InputMethodManager inputMethodManager = (InputMethodManager) activity
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
         }
+    }
+
+    public static int booleanToInt(boolean b) {
+        return b ? 1 : 0;
+    }
+
+    public static boolean intToBoolean(int b) {
+        return b == 1;
     }
 
 }
