@@ -17,7 +17,7 @@ import com.sarkisian.boilerplate.sync.bus.event.Event;
 import com.sarkisian.boilerplate.sync.rest.HttpRequestManager;
 import com.sarkisian.boilerplate.sync.rest.util.APIUtil;
 import com.sarkisian.boilerplate.sync.rest.util.PostEntityUtil;
-import com.sarkisian.boilerplate.sync.service.TlIntentService;
+import com.sarkisian.boilerplate.sync.service.BPIntentService;
 import com.sarkisian.boilerplate.util.AppUtil;
 import com.sarkisian.boilerplate.util.Logger;
 import com.sarkisian.boilerplate.util.manager.DialogManager;
@@ -25,33 +25,13 @@ import com.sarkisian.boilerplate.util.manager.SnackBarManager;
 
 public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = AuthActivity.class.getSimpleName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
 
     private Button mBtnSign;
     private TextInputLayout mTilEmail;
     private TextInputEditText mTietEmail;
     private TextInputLayout mTilPass;
     private TextInputEditText mTietPass;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
 
     @Override
     protected void onDestroy() {
@@ -83,10 +63,6 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    // ===========================================================
-    // Observer callback
-    // ===========================================================
-
     @Subscribe
     public void onEventReceived(Event event) {
         if (event instanceof ApiEvent) {
@@ -95,10 +71,6 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
-
-    // ===========================================================
-    // Observer methods
-    // ===========================================================
 
     private void handleApiEvents(ApiEvent event) {
         DialogManager.getInstance().dismissPreloader(this.getClass());
@@ -140,14 +112,6 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    // ===========================================================
-    // Other Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Click Listeners
-    // ===========================================================
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -158,10 +122,6 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private void setListeners() {
         mBtnSign.setOnClickListener(this);
@@ -201,21 +161,15 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
             String postEntity = PostEntityUtil.composeSignInPostEntity(
                     mail,
-                    pass
-            );
+                    pass);
 
-            TlIntentService.start(
+            BPIntentService.start(
                     this,
                     getClass().getSimpleName(),
                     APIUtil.getURL(HttpRequestManager.RequestType.LOG_IN),
                     postEntity,
-                    HttpRequestManager.RequestType.LOG_IN
-            );
+                    HttpRequestManager.RequestType.LOG_IN);
         }
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 
 }

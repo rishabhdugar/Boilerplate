@@ -6,21 +6,7 @@ import android.os.StrictMode;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
-public class TlApplication extends Application {
-
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = TlApplication.class.getName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
+public class BPApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -29,10 +15,6 @@ public class TlApplication extends Application {
         installLeakCanary();
         installStetho();
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private void turnOnStrictMode() {
         if (BuildConfig.DEBUG) {
@@ -62,4 +44,5 @@ public class TlApplication extends Application {
             Stetho.initializeWithDefaults(this);
         }
     }
+
 }

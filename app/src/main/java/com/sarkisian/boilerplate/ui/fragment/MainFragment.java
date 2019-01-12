@@ -11,21 +11,9 @@ import com.sarkisian.boilerplate.util.Constant;
 
 public class MainFragment extends BaseFragment implements View.OnClickListener {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = MainFragment.class.getSimpleName();
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
     private Bundle mArgumentData;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -36,14 +24,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         fragment.setArguments(args);
         return fragment;
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,23 +43,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
-    // ===========================================================
-    // Click Listeners
-    // ===========================================================
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            // not used
         }
     }
-
-    // ===========================================================
-    // Other Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private void setListeners() {
     }
@@ -96,7 +65,4 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private void customizeActionBar() {
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }

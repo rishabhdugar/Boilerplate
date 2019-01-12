@@ -46,4 +46,5 @@ public class Constant {
         public static final String RELEASE = "release";
         public static final String DEBUG = "debug";
     }
+
 }

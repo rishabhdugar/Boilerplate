@@ -11,31 +11,11 @@ import com.sarkisian.boilerplate.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = BaseActivity.class.getSimpleName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
 
     private TextView mTvToolbarTitle;
     private TextView mTvSubToolbarTitle;
     private Toolbar mToolbar;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
     }
-
-    // ===========================================================
-    // Listeners, methods for/from Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     protected abstract int getLayoutResource();
 
@@ -114,7 +86,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }

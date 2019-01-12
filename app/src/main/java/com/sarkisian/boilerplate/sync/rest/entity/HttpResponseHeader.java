@@ -88,4 +88,5 @@ public class HttpResponseHeader {
     public void setHttpConnectionMessage(String httpConnectionMessage) {
         this.httpConnectionMessage = httpConnectionMessage;
     }
+
 }

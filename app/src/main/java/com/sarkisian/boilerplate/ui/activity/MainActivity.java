@@ -20,7 +20,7 @@ import com.sarkisian.boilerplate.sync.bus.event.Event;
 import com.sarkisian.boilerplate.sync.bus.event.NetworkEvent;
 import com.sarkisian.boilerplate.sync.rest.HttpRequestManager;
 import com.sarkisian.boilerplate.sync.rest.util.APIUtil;
-import com.sarkisian.boilerplate.sync.service.TlIntentService;
+import com.sarkisian.boilerplate.sync.service.BPIntentService;
 import com.sarkisian.boilerplate.ui.fragment.MainFragment;
 import com.sarkisian.boilerplate.util.AppUtil;
 import com.sarkisian.boilerplate.util.Logger;
@@ -30,36 +30,10 @@ import com.sarkisian.boilerplate.util.manager.SnackBarManager;
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BusProvider.unregister(this);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +44,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         customizeActionBar();
         initDrawer();
         openScreen(MainFragment.newInstance(), false, R.id.nav_one);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BusProvider.unregister(this);
     }
 
     @Override
@@ -86,10 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    // ===========================================================
-    // Observer callback
-    // ===========================================================
-
     @Subscribe
     public void onEventReceived(Event event) {
         if (event instanceof NetworkEvent) {
@@ -101,10 +77,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             }
         }
     }
-
-    // ===========================================================
-    // Observer methods
-    // ===========================================================
 
     private void handleNetworkEvent(NetworkEvent event) {
         switch (event.getEventType()) {
@@ -148,10 +120,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    // ===========================================================
-    // Other Listeners, methods for/from Interfaces
-    // ===========================================================
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -173,29 +141,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.nav_six:
-                TlIntentService.start(
+                BPIntentService.start(
                         MainActivity.this,
                         MainActivity.class.getSimpleName(),
                         APIUtil.getURL(HttpRequestManager.RequestType.LOG_OUT),
-                        HttpRequestManager.RequestType.LOG_OUT
-                );
+                        HttpRequestManager.RequestType.LOG_OUT);
                 break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    // ===========================================================
-    // Click Listeners
-    // ===========================================================
-
     @Override
     public void onClick(View v) {
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private void setListeners() {
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -216,8 +175,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 mDrawerLayout,
                 getToolBar(),
                 R.string.msg_navigation_drawer_open,
-                R.string.msg_navigation_drawer_close
-        );
+                R.string.msg_navigation_drawer_close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
@@ -230,12 +188,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 getSupportFragmentManager(),
                 fragment,
                 R.id.fl_main_container,
-                addToBackStack
-        );
+                addToBackStack);
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 
 }

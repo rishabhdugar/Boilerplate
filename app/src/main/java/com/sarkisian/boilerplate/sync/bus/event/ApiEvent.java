@@ -60,4 +60,5 @@ public class ApiEvent<T> extends Event {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
 }

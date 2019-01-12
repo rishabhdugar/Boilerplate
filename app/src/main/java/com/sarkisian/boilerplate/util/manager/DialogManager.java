@@ -13,10 +13,6 @@ import com.sarkisian.boilerplate.R;
 
 public class DialogManager {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     public static class DialogIdentifier {
         public static final int COMMON_DIALOG = 1;
     }
@@ -26,20 +22,12 @@ public class DialogManager {
         public static final String CANCEL = "Cancel";
     }
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
     private int mIdentifier;
     private String mContextClassName;
     private AlertDialog mAlertDialog;
     private AlertDialog mPreloaderDialog;
     private ProgressDialog mProgressDialog;
     private static DialogManager sInstance;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     private DialogManager() {
     }
@@ -50,10 +38,6 @@ public class DialogManager {
         }
         return sInstance;
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
 
     public int getIdentifier() {
         return mIdentifier;
@@ -82,10 +66,6 @@ public class DialogManager {
         }
         return null;
     }
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
 
     private boolean isAlertDialogShowing(Class startClass) {
         return mContextClassName != null && startClass != null
@@ -315,4 +295,5 @@ public class DialogManager {
             mPreloaderDialog.setContentView(view);
         }
     }
+
 }

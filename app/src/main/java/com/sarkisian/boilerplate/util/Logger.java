@@ -29,4 +29,5 @@ public class Logger {
     public static void wtf(String tag, String msg) {
         if (BuildConfig.DEBUG) Log.wtf(tag, msg);
     }
+
 }

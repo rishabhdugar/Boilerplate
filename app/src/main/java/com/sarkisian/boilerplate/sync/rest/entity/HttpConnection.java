@@ -97,4 +97,5 @@ public class HttpConnection {
     public void setHttpResponseHeader(HttpResponseHeader httpResponseHeader) {
         this.mHttpResponseHeader = httpResponseHeader;
     }
+
 }

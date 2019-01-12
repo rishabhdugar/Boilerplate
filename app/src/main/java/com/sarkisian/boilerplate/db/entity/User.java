@@ -153,4 +153,5 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
 }

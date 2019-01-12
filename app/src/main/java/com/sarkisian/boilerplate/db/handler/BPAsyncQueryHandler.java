@@ -5,19 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.sarkisian.boilerplate.db.TlDataBase;
+import com.sarkisian.boilerplate.db.BPDataBase;
 import com.sarkisian.boilerplate.db.entity.User;
 import com.sarkisian.boilerplate.db.provider.UriBuilder;
 
 import java.lang.ref.WeakReference;
 
-public class TlAsyncQueryHandler extends AsyncQueryHandler {
+public class BPAsyncQueryHandler extends AsyncQueryHandler {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private final static String LOG_TAG = TlAsyncQueryHandler.class.getSimpleName();
+    private final static String LOG_TAG = BPAsyncQueryHandler.class.getSimpleName();
 
     public static class QueryToken {
         public static final int GET_USER = 100;
@@ -28,24 +24,12 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         public static final int DELETE_USERS = 106;
     }
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
     private WeakReference<AsyncQueryListener> mQueryListenerReference;
 
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    public TlAsyncQueryHandler(Context context, AsyncQueryListener queryListenerReference) {
+    public BPAsyncQueryHandler(Context context, AsyncQueryListener queryListenerReference) {
         super(context.getContentResolver());
         mQueryListenerReference = new WeakReference<>(queryListenerReference);
     }
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
 
     @Override
     protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -81,17 +65,13 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         }
     }
 
-    // ===========================================================
-    // Util Methods
-    // ===========================================================
-
     public synchronized void getUser(long userId) {
         startQuery(
                 QueryToken.GET_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                TlDataBase.Projection.USER,
-                TlDataBase.USER_PK + "=?",
+                BPDataBase.Projection.USER,
+                BPDataBase.USER_PK + "=?",
                 new String[]{String.valueOf(userId)},
                 null
         );
@@ -102,7 +82,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.GET_USER,
                 null,
                 UriBuilder.buildUserUri(pk),
-                TlDataBase.Projection.USER,
+                BPDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -114,7 +94,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.GET_USERS,
                 null,
                 UriBuilder.buildUserUri(),
-                TlDataBase.Projection.USER,
+                BPDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -126,7 +106,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.ADD_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE)
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE)
         );
     }
 
@@ -135,8 +115,8 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.UPDATE_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                TlDataBase.USER_ID + "=?",
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE),
+                BPDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -146,7 +126,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.UPDATE_USER,
                 null,
                 UriBuilder.buildUserUri(user.getPk()),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE),
                 null,
                 null
         );
@@ -157,7 +137,7 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
                 QueryToken.DELETE_USER,
                 null,
                 UriBuilder.buildUserUri(),
-                TlDataBase.USER_ID + "=?",
+                BPDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -182,10 +162,6 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
         );
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
-
     public interface AsyncQueryListener {
         void onQueryComplete(int token, Object cookie, Cursor cursor);
 
@@ -195,6 +171,5 @@ public class TlAsyncQueryHandler extends AsyncQueryHandler {
 
         void onDeleteComplete(int token, Object cookie, int result);
     }
-
 
 }

@@ -6,24 +6,12 @@ import android.preference.PreferenceManager;
 
 public class Preference {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String PREF_USER_TOKEN = "PREF_USER_TOKEN";
     private static final String PREF_USER_NAME = "PREF_USER_NAME";
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
 
     private static Preference sInstance;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     private Preference(Context context) {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -37,10 +25,6 @@ public class Preference {
 
         return sInstance;
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
 
     public void setUserToken(String token) {
         mEditor.putString(PREF_USER_TOKEN, token);

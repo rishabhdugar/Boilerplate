@@ -7,7 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.sarkisian.boilerplate.db.entity.User;
-import com.sarkisian.boilerplate.db.handler.TlQueryHandler;
+import com.sarkisian.boilerplate.db.handler.BPQueryHandler;
 import com.sarkisian.boilerplate.sync.bus.BusProvider;
 import com.sarkisian.boilerplate.sync.bus.event.ApiEvent;
 import com.sarkisian.boilerplate.sync.bus.event.Event;
@@ -23,13 +23,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
-public class TlThreadPoolExecutorService extends Service {
+public class BPThreadPoolExecutorService extends Service {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = TlThreadPoolExecutorService.class.getSimpleName();
+    private static final String LOG_TAG = BPThreadPoolExecutorService.class.getSimpleName();
 
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
@@ -43,15 +39,7 @@ public class TlThreadPoolExecutorService extends Service {
         static final String REQUEST_TYPE = "REQUEST_TYPE";
     }
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
     private ThreadPoolExecutor mThreadPoolExecutor;
-
-    // ===========================================================
-    // Util Methods
-    // ===========================================================
 
     /**
      * @param url         - calling api url
@@ -60,9 +48,12 @@ public class TlThreadPoolExecutorService extends Service {
      * @param subscriber  - object(class) that started service
      */
 
-    public static void start(Context context, String subscriber, String url, String postEntity,
+    public static void start(Context context,
+                             String subscriber,
+                             String url,
+                             String postEntity,
                              int requestType) {
-        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
+        Intent intent = new Intent(context, BPThreadPoolExecutorService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -70,18 +61,16 @@ public class TlThreadPoolExecutorService extends Service {
         context.startService(intent);
     }
 
-    public static void start(Context context, String subscriber, String url,
+    public static void start(Context context,
+                             String subscriber,
+                             String url,
                              int requestType) {
-        Intent intent = new Intent(context, TlThreadPoolExecutorService.class);
+        Intent intent = new Intent(context, BPThreadPoolExecutorService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
         context.startService(intent);
     }
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
 
     @Override
     public void onCreate() {
@@ -136,10 +125,6 @@ public class TlThreadPoolExecutorService extends Service {
         return null;
     }
 
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
     private void logInRequest(String url, String postEntity, String subscriber) {
 
         HttpConnection httpConnection = HttpRequestManager.executeRequest(
@@ -158,7 +143,7 @@ public class TlThreadPoolExecutorService extends Service {
 
         // Save user in DB (in template we create fake user, in your project
         // get server user after login, or implement it how you need)
-        TlQueryHandler.addUser(this, new User(145, "David Berligen", "david.berligen@db.com"));
+        BPQueryHandler.addUser(this, new User(145, "David Berligen", "david.berligen@db.com"));
 
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGIN_COMPLETED, subscriber));
 
@@ -198,4 +183,5 @@ public class TlThreadPoolExecutorService extends Service {
         Preference.getInstance(this).setUserToken(null);
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
     }
+
 }

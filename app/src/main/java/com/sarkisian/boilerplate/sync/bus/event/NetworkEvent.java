@@ -23,4 +23,5 @@ public class NetworkEvent extends Event {
     public void setEventType(int eventType) {
         this.eventType = eventType;
     }
+
 }

@@ -3,11 +3,14 @@ package com.sarkisian.boilerplate.sync.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Process;
 import android.support.annotation.Nullable;
 
 import com.sarkisian.boilerplate.db.entity.User;
-import com.sarkisian.boilerplate.db.handler.TlQueryHandler;
+import com.sarkisian.boilerplate.db.handler.BPQueryHandler;
 import com.sarkisian.boilerplate.sync.bus.BusProvider;
 import com.sarkisian.boilerplate.sync.bus.event.ApiEvent;
 import com.sarkisian.boilerplate.sync.bus.event.Event;
@@ -18,18 +21,10 @@ import com.sarkisian.boilerplate.util.Constant;
 import com.sarkisian.boilerplate.util.Logger;
 import com.sarkisian.boilerplate.util.Preference;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+public class BPService extends Service {
 
-public class TlExecutorService extends Service {
-
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = TlExecutorService.class.getSimpleName();
-    private static final int THREAD_POOL_SIZE = 10;
+    private static final String LOG_TAG = BPService.class.getSimpleName();
 
     private static class Extra {
         static final String URL = "URL";
@@ -38,15 +33,8 @@ public class TlExecutorService extends Service {
         static final String REQUEST_TYPE = "REQUEST_TYPE";
     }
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    private ExecutorService mExecutorService;
-
-    // ===========================================================
-    // Util Methods
-    // ===========================================================
+    private Handler mHandler;
+    private HandlerThread mHandlerThread;
 
     /**
      * @param url         - calling api url
@@ -55,9 +43,12 @@ public class TlExecutorService extends Service {
      * @param subscriber  - object(class) that started service
      */
 
-    public static void start(Context context, String subscriber, String url, String postEntity,
+    public static void start(Context context,
+                             String subscriber,
+                             String url,
+                             String postEntity,
                              int requestType) {
-        Intent intent = new Intent(context, TlExecutorService.class);
+        Intent intent = new Intent(context, BPService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
@@ -65,23 +56,24 @@ public class TlExecutorService extends Service {
         context.startService(intent);
     }
 
-    public static void start(Context context, String subscriber, String url,
+    public static void start(Context context,
+                             String subscriber,
+                             String url,
                              int requestType) {
-        Intent intent = new Intent(context, TlExecutorService.class);
+        Intent intent = new Intent(context, BPService.class);
         intent.putExtra(Extra.SUBSCRIBER, subscriber);
         intent.putExtra(Extra.URL, url);
         intent.putExtra(Extra.REQUEST_TYPE, requestType);
         context.startService(intent);
     }
 
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
     @Override
     public void onCreate() {
         super.onCreate();
-        mExecutorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        mHandlerThread = new HandlerThread(BPService.class.getSimpleName(),
+                Process.THREAD_PRIORITY_BACKGROUND);
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
     }
 
     @Override
@@ -92,7 +84,7 @@ public class TlExecutorService extends Service {
         final int requestType = intent.getExtras().getInt(Extra.REQUEST_TYPE);
         Logger.i(LOG_TAG, requestType + Constant.Symbol.SPACE + url);
 
-        mExecutorService.execute(new Runnable() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
                 switch (requestType) {
@@ -116,7 +108,7 @@ public class TlExecutorService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mExecutorService.shutdown();
+        mHandlerThread.quit();
     }
 
     @Nullable
@@ -124,10 +116,6 @@ public class TlExecutorService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private void logInRequest(String url, String postEntity, String subscriber) {
 
@@ -147,7 +135,7 @@ public class TlExecutorService extends Service {
 
         // Save user in DB (in template we create fake user, in your project
         // get server user after login, or implement it how you need)
-        TlQueryHandler.addUser(this, new User(145, "David Berligen", "david.berligen@db.com"));
+        BPQueryHandler.addUser(this, new User(145, "David Berligen", "david.berligen@db.com"));
 
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGIN_COMPLETED, subscriber));
 
@@ -187,4 +175,5 @@ public class TlExecutorService extends Service {
         Preference.getInstance(this).setUserToken(null);
         BusProvider.getInstance().post(new ApiEvent(Event.EventType.Api.LOGOUT_COMPLETED, subscriber));
     }
+
 }

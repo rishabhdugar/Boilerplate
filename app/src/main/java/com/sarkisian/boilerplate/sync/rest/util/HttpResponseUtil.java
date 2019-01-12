@@ -13,15 +13,7 @@ import java.net.HttpURLConnection;
 
 public class HttpResponseUtil {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = HttpResponseUtil.class.getSimpleName();
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     public static HttpConnection handleConnection(HttpConnection httpConnection) {
 

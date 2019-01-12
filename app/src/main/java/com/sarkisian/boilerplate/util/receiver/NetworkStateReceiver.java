@@ -13,22 +13,8 @@ import com.sarkisian.boilerplate.sync.bus.event.NetworkEvent;
 
 public class NetworkStateReceiver extends BroadcastReceiver {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = NetworkStateReceiver.class.getSimpleName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
     private static NetworkStateReceiver sInstance;
     private Context mContext;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     public NetworkStateReceiver(Context context) {
         mContext = context;
@@ -41,10 +27,6 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         return sInstance;
     }
 
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
@@ -54,16 +36,11 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         if (activeNetwork != null) {
             BusProvider.getInstance().post(new NetworkEvent(Event.EventType.Network.CONNECTED));
             // TODO: Implement unregister logic depending on project demands
-            // unregisterBroadcast(context);
 
         } else {
             BusProvider.getInstance().post(new NetworkEvent(Event.EventType.Network.DISCONNECTED));
         }
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     public void registerBroadcast() {
         mContext.registerReceiver(sInstance,
@@ -78,4 +55,5 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         }
         mContext = null;
     }
+
 }

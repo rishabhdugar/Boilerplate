@@ -11,15 +11,7 @@ import java.util.concurrent.Executor;
 
 public class BusProvider {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = BusProvider.class.getName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
 
     private static final EventBus BUS = new AsyncEventBus(new Executor() {
         private Handler handler;
@@ -32,20 +24,12 @@ public class BusProvider {
         }
     });
 
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
     public static EventBus getInstance() {
         return BUS;
     }
 
     private BusProvider() {
     }
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
 
     public static void register(Object object) {
         BusProvider.getInstance().register(object);
@@ -58,4 +42,5 @@ public class BusProvider {
             e.printStackTrace();
         }
     }
+
 }

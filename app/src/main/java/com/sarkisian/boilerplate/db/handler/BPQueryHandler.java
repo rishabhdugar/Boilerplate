@@ -4,20 +4,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.sarkisian.boilerplate.db.TlDataBase;
+import com.sarkisian.boilerplate.db.BPDataBase;
 import com.sarkisian.boilerplate.db.cursor.CursorReader;
 import com.sarkisian.boilerplate.db.entity.User;
 import com.sarkisian.boilerplate.db.provider.UriBuilder;
 
 import java.util.ArrayList;
 
-public class TlQueryHandler {
+public class BPQueryHandler {
 
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private final static String LOG_TAG = TlQueryHandler.class.getSimpleName();
+    private final static String LOG_TAG = BPQueryHandler.class.getSimpleName();
 
     // ===========================================================
     // Methods
@@ -26,22 +26,22 @@ public class TlQueryHandler {
     public synchronized static void addUser(Context context, User user) {
         context.getContentResolver().insert(
                 UriBuilder.buildUserUri(),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE)
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE)
         );
     }
 
     public synchronized static void addUsers(Context context, ArrayList<User> userArrayList) {
         context.getContentResolver().bulkInsert(
                 UriBuilder.buildUserUri(),
-                TlDataBase.composeValuesArray(userArrayList, TlDataBase.USER_TABLE)
+                BPDataBase.composeValuesArray(userArrayList, BPDataBase.USER_TABLE)
         );
     }
 
     public synchronized static void updateUser(Context context, User user) {
         context.getContentResolver().update(
                 UriBuilder.buildUserUri(),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                TlDataBase.USER_ID + "=?",
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE),
+                BPDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -49,7 +49,7 @@ public class TlQueryHandler {
     public synchronized static void updateUserByPk(Context context, User user) {
         context.getContentResolver().update(
                 UriBuilder.buildUserUri(user.getPk()),
-                TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
+                BPDataBase.composeValues(user, BPDataBase.USER_TABLE),
                 null,
                 null
         );
@@ -59,8 +59,8 @@ public class TlQueryHandler {
         for (User user : users) {
             context.getContentResolver().update(
                     UriBuilder.buildUserUri(),
-                    TlDataBase.composeValues(user, TlDataBase.USER_TABLE),
-                    TlDataBase.USER_ID + "=?",
+                    BPDataBase.composeValues(user, BPDataBase.USER_TABLE),
+                    BPDataBase.USER_ID + "=?",
                     new String[]{String.valueOf(user.getId())}
             );
         }
@@ -69,8 +69,8 @@ public class TlQueryHandler {
     public synchronized static User getUser(Context context, long userId) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(),
-                TlDataBase.Projection.USER,
-                TlDataBase.USER_ID + "=?",
+                BPDataBase.Projection.USER,
+                BPDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(userId)},
                 null
         );
@@ -80,7 +80,7 @@ public class TlQueryHandler {
     public synchronized static User getUserByPk(Context context, long userPk) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(userPk),
-                TlDataBase.Projection.USER,
+                BPDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -91,7 +91,7 @@ public class TlQueryHandler {
     public synchronized static ArrayList<User> getUsers(Context context) {
         Cursor cursor = context.getContentResolver().query(
                 UriBuilder.buildUserUri(),
-                TlDataBase.Projection.USER,
+                BPDataBase.Projection.USER,
                 null,
                 null,
                 null
@@ -102,7 +102,7 @@ public class TlQueryHandler {
     public synchronized static void deleteUser(Context context, User user) {
         context.getContentResolver().delete(
                 UriBuilder.buildUserUri(),
-                TlDataBase.USER_ID + "=?",
+                BPDataBase.USER_ID + "=?",
                 new String[]{String.valueOf(user.getId())}
         );
     }
@@ -126,7 +126,7 @@ public class TlQueryHandler {
     public synchronized static boolean isTableEmpty(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(
                 uri,
-                TlDataBase.Projection.COUNT,
+                BPDataBase.Projection.COUNT,
                 null,
                 null,
                 null

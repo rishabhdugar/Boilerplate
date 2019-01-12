@@ -15,10 +15,6 @@ import java.net.URL;
 
 public class RestHttpClient {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
     private static final String LOG_TAG = RestHttpClient.class.getSimpleName();
 
     private static final String UTF_8 = "UTF-8";
@@ -49,10 +45,6 @@ public class RestHttpClient {
         public static final String TOKEN = "token";
         public static final String JSON_ENTITY = "entity";
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     /**
      * HEAD Request
@@ -379,4 +371,5 @@ public class RestHttpClient {
             }
         }
     }
+
 }

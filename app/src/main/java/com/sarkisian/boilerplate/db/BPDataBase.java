@@ -7,17 +7,9 @@ import com.sarkisian.boilerplate.util.Logger;
 
 import java.util.ArrayList;
 
-public class TlDataBase {
+public class BPDataBase {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = TlDataBase.class.getName();
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
+    private static final String LOG_TAG = BPDataBase.class.getName();
 
     public static final String USER_TABLE = "USER_TABLE";
 
@@ -44,14 +36,14 @@ public class TlDataBase {
 
     public static class Projection {
         public static final String[] USER = {
-                TlDataBase.USER_PK,
-                TlDataBase.USER_ID,
-                TlDataBase.USER_NAME,
-                TlDataBase.USER_FIRST_NAME,
-                TlDataBase.USER_LAST_NAME,
-                TlDataBase.USER_EMAIL,
-                TlDataBase.USER_PHONE_NUMBER,
-                TlDataBase.USER_AVATAR
+                BPDataBase.USER_PK,
+                BPDataBase.USER_ID,
+                BPDataBase.USER_NAME,
+                BPDataBase.USER_FIRST_NAME,
+                BPDataBase.USER_LAST_NAME,
+                BPDataBase.USER_EMAIL,
+                BPDataBase.USER_PHONE_NUMBER,
+                BPDataBase.USER_AVATAR
         };
 
         public static final String[] COUNT = {
@@ -59,16 +51,11 @@ public class TlDataBase {
         };
     }
 
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
     static void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
     }
 
     static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         // implement update according to the project requirements
         Logger.i(LOG_TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion);
@@ -81,15 +68,15 @@ public class TlDataBase {
         ContentValues values = new ContentValues();
 
         switch (table) {
-            case TlDataBase.USER_TABLE:
+            case BPDataBase.USER_TABLE:
                 User user = (User) object;
-                values.put(TlDataBase.USER_ID, user.getId());
-                values.put(TlDataBase.USER_NAME, user.getName());
-                values.put(TlDataBase.USER_FIRST_NAME, user.getFirstName());
-                values.put(TlDataBase.USER_LAST_NAME, user.getLastName());
-                values.put(TlDataBase.USER_EMAIL, user.getEmail());
-                values.put(TlDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
-                values.put(TlDataBase.USER_AVATAR, user.getAvatar());
+                values.put(BPDataBase.USER_ID, user.getId());
+                values.put(BPDataBase.USER_NAME, user.getName());
+                values.put(BPDataBase.USER_FIRST_NAME, user.getFirstName());
+                values.put(BPDataBase.USER_LAST_NAME, user.getLastName());
+                values.put(BPDataBase.USER_EMAIL, user.getEmail());
+                values.put(BPDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
+                values.put(BPDataBase.USER_AVATAR, user.getAvatar());
                 break;
         }
         return values;
@@ -99,17 +86,17 @@ public class TlDataBase {
         ArrayList<ContentValues> valuesList = new ArrayList<>();
 
         switch (table) {
-            case TlDataBase.USER_TABLE:
+            case BPDataBase.USER_TABLE:
                 ArrayList<User> users = (ArrayList<User>) objects;
                 for (User user : users) {
                     ContentValues values = new ContentValues();
-                    values.put(TlDataBase.USER_ID, user.getId());
-                    values.put(TlDataBase.USER_NAME, user.getName());
-                    values.put(TlDataBase.USER_FIRST_NAME, user.getFirstName());
-                    values.put(TlDataBase.USER_LAST_NAME, user.getLastName());
-                    values.put(TlDataBase.USER_EMAIL, user.getEmail());
-                    values.put(TlDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
-                    values.put(TlDataBase.USER_AVATAR, user.getAvatar());
+                    values.put(BPDataBase.USER_ID, user.getId());
+                    values.put(BPDataBase.USER_NAME, user.getName());
+                    values.put(BPDataBase.USER_FIRST_NAME, user.getFirstName());
+                    values.put(BPDataBase.USER_LAST_NAME, user.getLastName());
+                    values.put(BPDataBase.USER_EMAIL, user.getEmail());
+                    values.put(BPDataBase.USER_PHONE_NUMBER, user.getPhoneNumber());
+                    values.put(BPDataBase.USER_AVATAR, user.getAvatar());
                     valuesList.add(values);
                 }
                 break;
@@ -117,7 +104,4 @@ public class TlDataBase {
         return valuesList.toArray(new ContentValues[valuesList.size()]);
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }

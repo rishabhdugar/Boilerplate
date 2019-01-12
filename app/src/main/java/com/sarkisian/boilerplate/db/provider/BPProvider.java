@@ -12,22 +12,18 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.sarkisian.boilerplate.BuildConfig;
-import com.sarkisian.boilerplate.db.TlDataBase;
-import com.sarkisian.boilerplate.db.TlDataBaseHelper;
+import com.sarkisian.boilerplate.db.BPDataBase;
+import com.sarkisian.boilerplate.db.BPDataBaseHelper;
 
 
-public class TlProvider extends ContentProvider {
+public class BPProvider extends ContentProvider {
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    private static final String LOG_TAG = TlProvider.class.getName();
+    private static final String LOG_TAG = BPProvider.class.getName();
 
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID;
 
     static class Path {
-        static final String USER_LOCATION = TlDataBase.USER_TABLE;
+        static final String USER_LOCATION = BPDataBase.USER_TABLE;
     }
 
     private static class Code {
@@ -45,19 +41,11 @@ public class TlProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    private TlDataBaseHelper mDataBaseHelper;
-
-    // ===========================================================
-    // Methods for/from SuperClass
-    // ===========================================================
+    private BPDataBaseHelper mDataBaseHelper;
 
     @Override
     public boolean onCreate() {
-        mDataBaseHelper = new TlDataBaseHelper(getContext());
+        mDataBaseHelper = new BPDataBaseHelper(getContext());
         return true;
     }
 
@@ -87,7 +75,7 @@ public class TlProvider extends ContentProvider {
             case Code.ALL_USERS:
                 // TODO: implement insert logic according to the project requirements
                 rowId = db.insertWithOnConflict(
-                        TlDataBase.USER_TABLE,
+                        BPDataBase.USER_TABLE,
                         null,
                         values,
                         SQLiteDatabase.CONFLICT_REPLACE
@@ -116,7 +104,7 @@ public class TlProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
                 cursor = db.query(
-                        TlDataBase.USER_TABLE,
+                        BPDataBase.USER_TABLE,
                         projection,
                         selection,
                         selectionArgs,
@@ -128,9 +116,9 @@ public class TlProvider extends ContentProvider {
 
             case Code.SINGLE_USER:
                 cursor = db.query(
-                        TlDataBase.USER_TABLE,
+                        BPDataBase.USER_TABLE,
                         projection,
-                        TlDataBase.USER_PK + "=?",
+                        BPDataBase.USER_PK + "=?",
                         new String[]{String.valueOf(ContentUris.parseId(uri))},
                         null,
                         null,
@@ -154,7 +142,7 @@ public class TlProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
                 rowsDeleted = db.delete(
-                        TlDataBase.USER_TABLE,
+                        BPDataBase.USER_TABLE,
                         selection,
                         selectionArgs
                 );
@@ -163,14 +151,14 @@ public class TlProvider extends ContentProvider {
             case Code.SINGLE_USER:
                 if (TextUtils.isEmpty(selection)) {
                     rowsDeleted = db.delete(
-                            TlDataBase.USER_TABLE,
-                            TlDataBase.USER_PK + "=" + ContentUris.parseId(uri),
+                            BPDataBase.USER_TABLE,
+                            BPDataBase.USER_PK + "=" + ContentUris.parseId(uri),
                             null
                     );
                 } else {
                     rowsDeleted = db.delete(
-                            TlDataBase.USER_TABLE,
-                            TlDataBase.USER_PK + "=" + ContentUris.parseId(uri) + " AND " + selection,
+                            BPDataBase.USER_TABLE,
+                            BPDataBase.USER_PK + "=" + ContentUris.parseId(uri) + " AND " + selection,
                             selectionArgs
                     );
                 }
@@ -194,7 +182,7 @@ public class TlProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case Code.ALL_USERS:
                 rowsUpdated = db.update(
-                        TlDataBase.USER_TABLE,
+                        BPDataBase.USER_TABLE,
                         values,
                         selection,
                         selectionArgs
@@ -204,17 +192,17 @@ public class TlProvider extends ContentProvider {
             case Code.SINGLE_USER:
                 if (TextUtils.isEmpty(selection)) {
                     rowsUpdated = db.update(
-                            TlDataBase.USER_TABLE,
+                            BPDataBase.USER_TABLE,
                             values,
-                            TlDataBase.USER_PK + "=" + ContentUris.parseId(uri),
+                            BPDataBase.USER_PK + "=" + ContentUris.parseId(uri),
                             null
                     );
 
                 } else {
                     rowsUpdated = db.update(
-                            TlDataBase.USER_TABLE,
+                            BPDataBase.USER_TABLE,
                             values,
-                            TlDataBase.USER_PK + "=" + ContentUris.parseId(uri) + " AND " + selection,
+                            BPDataBase.USER_PK + "=" + ContentUris.parseId(uri) + " AND " + selection,
                             selectionArgs
                     );
                 }
@@ -229,10 +217,6 @@ public class TlProvider extends ContentProvider {
         }
         return rowsUpdated;
     }
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
